@@ -1,0 +1,66 @@
+/**
+ * ============================================================
+ * THEME — every color, font, and spacing value the site uses.
+ * ============================================================
+ * Reskinning a new client means editing this file only.
+ * styles.css never contains a hardcoded color, font, or hex
+ * value — it always references one of these custom properties.
+ * ============================================================
+ */
+:root {
+  /* ---- Color: near-monochrome base + one accent ---- */
+  --color-bg: #faf8f5;             /* page background, warm off-white */
+  --color-surface: #ffffff;        /* cards, elevated panels */
+  --color-surface-alt: #f1ede7;    /* subtle alternate section background */
+  --color-text: #1c1b1a;           /* primary text, near-black charcoal */
+  --color-text-muted: #6b6864;     /* secondary text */
+  --color-border: #e4e0da;         /* hairlines, dividers */
+
+  --color-accent: #7a2333;         /* deep rose — the ONE accent color */
+  --color-accent-hover: #8f2b3d;
+  --color-accent-contrast: #ffffff; /* text/icon color on top of accent */
+
+  --color-whatsapp: #25d366;       /* WhatsApp brand green, used only for the WA button */
+  --color-whatsapp-hover: #1ebe5b;
+
+  /* ---- Typography ---- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+
+  --fs-hero: clamp(2.5rem, 6vw + 1rem, 4.5rem);
+  --fs-h2: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+  --fs-h3: 1.25rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-eyebrow: 0.8125rem;
+
+  --lh-tight: 1.15;
+  --lh-normal: 1.6;
+
+  /* ---- Spacing scale ---- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* ---- Layout ---- */
+  --max-width: 1120px;
+  --gutter: 1.25rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-full: 999px;
+
+  /* ---- Elevation ---- */
+  --shadow-sm: 0 1px 3px rgba(28, 27, 26, 0.08);
+  --shadow-md: 0 12px 32px rgba(28, 27, 26, 0.12);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fade: 700ms;
+}
