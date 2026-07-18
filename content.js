@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * SITE CONTENT — edit this file to reskin the template.
+ * SITE CONTENT. Edit this file to reskin the template.
  * ============================================================
  * Every piece of text, contact info, and image path used by
  * index.html lives here. Nothing is hardcoded in the markup.
@@ -12,9 +12,9 @@
  */
 const CONTENT = {
   meta: {
-    siteTitle: "Bunga Tole Florist — Bunga Segar di Cikini, Jakarta",
+    siteTitle: "Bunga Tole Florist | Bunga Segar di Cikini, Jakarta",
     description:
-      "Bunga Tole Florist — buket segar, bunga pernikahan, dan papan bunga di Pasar Kembang, Cikini, Jakarta Pusat. Pesan kapan saja lewat WhatsApp.",
+      "Bunga Tole Florist menyediakan buket segar, bunga pernikahan, dan papan bunga di Pasar Kembang, Cikini, Jakarta Pusat. Pesan kapan saja lewat WhatsApp.",
     // Browser chrome / PWA tint color, kept in sync with --color-bg in theme.css
     themeColor: "#faf8f5"
   },
@@ -30,7 +30,7 @@ const CONTENT = {
   contact: {
     // Shown to visitors
     phoneDisplay: "+62 858-9261-1994",
-    // Digits only, country code first, no symbols — required format for wa.me links
+    // Digits only, country code first, no symbols. Required format for wa.me links
     whatsappNumber: "6285892611994",
     // Pre-filled message when a visitor taps an "Order via WhatsApp" button
     whatsappMessage: "Halo Bunga Tole, saya mau pesan bunga!"
@@ -51,7 +51,7 @@ const CONTENT = {
 
   hours: {
     display: "Buka 24 Jam",
-    note: "Pesanan diterima kapan saja lewat WhatsApp — pengiriman di hari yang sama untuk area Menteng & Cikini."
+    note: "Pesanan diterima kapan saja lewat WhatsApp. Pengiriman di hari yang sama untuk area Menteng & Cikini."
   },
 
   hero: {
@@ -66,7 +66,7 @@ const CONTENT = {
   about: {
     heading: "Kisah Kami",
     body:
-      "Berada di antara kios-kios Pasar Kembang — pasar bunga tertua di Jakarta yang telah beroperasi sejak 1962 — Bunga Tole telah bertahun-tahun memilih bunga-bunga tersegar yang ditawarkan Cikini. Setiap buket dipotong, dirangkai, dan dibungkus dengan tangan, sehingga tidak ada dua yang benar-benar sama. Baik untuk hadiah di hari yang sama, dekorasi pernikahan, maupun papan bunga untuk peresmian, kami mengerjakan setiap pesanan seolah itu satu-satunya yang kami buat hari itu.",
+      "Bunga Tole berada di antara kios-kios Pasar Kembang, pasar bunga tertua di Jakarta yang telah beroperasi sejak 1962. Selama bertahun-tahun kami memilih bunga-bunga tersegar yang ditawarkan Cikini, dan setiap buket dipotong, dirangkai, serta dibungkus dengan tangan, sehingga tidak ada dua yang benar-benar sama. Baik untuk hadiah di hari yang sama, dekorasi pernikahan, maupun papan bunga untuk peresmian, kami mengerjakan setiap pesanan seolah itu satu-satunya yang kami buat hari itu.",
     image: "images/about.jpg",
     imageAlt: "Tangan florist merangkai buket mawar merah segar"
   },
@@ -116,7 +116,7 @@ const CONTENT = {
     },
     {
       name: "Pesanan Custom",
-      description: "Ceritakan acara dan budget Anda — kami rancang sesuatu yang unik khusus untuk Anda.",
+      description: "Ceritakan acara dan budget Anda, kami rancang sesuatu yang unik khusus untuk Anda.",
       image: "images/gallery-6.jpg",
       imageAlt: "Memilih mawar segar di kios bunga"
     }

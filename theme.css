@@ -1,10 +1,10 @@
 /**
  * ============================================================
- * THEME — every color, font, and spacing value the site uses.
+ * THEME. Every color, font, and spacing value the site uses.
  * ============================================================
  * Reskinning a new client means editing this file only.
  * styles.css never contains a hardcoded color, font, or hex
- * value — it always references one of these custom properties.
+ * value; it always references one of these custom properties.
  * ============================================================
  */
 :root {
@@ -16,7 +16,7 @@
   --color-text-muted: #6b6864;     /* secondary text */
   --color-border: #e4e0da;         /* hairlines, dividers */
 
-  --color-accent: #7a2333;         /* deep rose — the ONE accent color */
+  --color-accent: #7a2333;         /* deep rose, the ONE accent color */
   --color-accent-hover: #8f2b3d;
   --color-accent-contrast: #ffffff; /* text/icon color on top of accent */
 

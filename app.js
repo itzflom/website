@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * APP — renders CONTENT into the DOM. No business copy lives
+ * APP. Renders CONTENT into the DOM. No business copy lives
  * in this file; it only knows how to place values from
  * content.js into the markup and wire up interactions.
  * ============================================================
