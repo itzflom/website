@@ -6,13 +6,15 @@
  * index.html lives here. Nothing is hardcoded in the markup.
  * To launch a new client, copy this file, replace the values,
  * and drop matching images into /images. See README.md.
+ *
+ * Current language: Bahasa Indonesia.
  * ============================================================
  */
 const CONTENT = {
   meta: {
-    siteTitle: "Bunga Tole Florist — Fresh Flowers in Cikini, Jakarta",
+    siteTitle: "Bunga Tole Florist — Bunga Segar di Cikini, Jakarta",
     description:
-      "Bunga Tole Florist — fresh bouquets, wedding florals, and standing arrangements at Pasar Kembang, Cikini, Jakarta Pusat. Order anytime via WhatsApp.",
+      "Bunga Tole Florist — buket segar, bunga pernikahan, dan papan bunga di Pasar Kembang, Cikini, Jakarta Pusat. Pesan kapan saja lewat WhatsApp.",
     // Browser chrome / PWA tint color, kept in sync with --color-bg in theme.css
     themeColor: "#faf8f5"
   },
@@ -20,9 +22,9 @@ const CONTENT = {
   business: {
     name: "Bunga Tole Florist",
     shortName: "Bunga Tole",
-    tagline: "Fresh flowers, thoughtfully arranged",
+    tagline: "Bunga segar, dirangkai dengan penuh perhatian",
     rating: 4.8,
-    ratingSource: "Google rating"
+    ratingSource: "Rating Google"
   },
 
   contact: {
@@ -31,7 +33,7 @@ const CONTENT = {
     // Digits only, country code first, no symbols — required format for wa.me links
     whatsappNumber: "6285892611994",
     // Pre-filled message when a visitor taps an "Order via WhatsApp" button
-    whatsappMessage: "Hi Bunga Tole, I'd like to order some flowers!"
+    whatsappMessage: "Halo Bunga Tole, saya mau pesan bunga!"
   },
 
   address: {
@@ -48,82 +50,82 @@ const CONTENT = {
   },
 
   hours: {
-    display: "Open 24 hours",
-    note: "Orders taken anytime via WhatsApp — same-day delivery around Menteng & Cikini."
+    display: "Buka 24 Jam",
+    note: "Pesanan diterima kapan saja lewat WhatsApp — pengiriman di hari yang sama untuk area Menteng & Cikini."
   },
 
   hero: {
     eyebrow: "Pasar Kembang, Cikini",
     heading: "Bunga Tole Florist",
-    subheading: "Fresh flowers, thoughtfully arranged",
-    ctaLabel: "Order via WhatsApp",
+    subheading: "Bunga segar, dirangkai dengan penuh perhatian",
+    ctaLabel: "Pesan via WhatsApp",
     image: "images/hero.jpg",
-    imageAlt: "Close-up of fresh pink roses in soft natural light"
+    imageAlt: "Close-up mawar merah muda segar dengan cahaya alami yang lembut"
   },
 
   about: {
-    heading: "Our Story",
+    heading: "Kisah Kami",
     body:
-      "Tucked beside the stalls of Pasar Kembang — Jakarta's oldest flower market, trading since 1962 — Bunga Tole has spent years sourcing the freshest blooms Cikini has to offer. Every bouquet is cut, arranged, and wrapped by hand, so no two are quite the same. Whether it's a same-day gift, a wedding centerpiece, or a standing arrangement for a grand opening, we treat each order like it's the only one we're making that day.",
+      "Berada di antara kios-kios Pasar Kembang — pasar bunga tertua di Jakarta yang telah beroperasi sejak 1962 — Bunga Tole telah bertahun-tahun memilih bunga-bunga tersegar yang ditawarkan Cikini. Setiap buket dipotong, dirangkai, dan dibungkus dengan tangan, sehingga tidak ada dua yang benar-benar sama. Baik untuk hadiah di hari yang sama, dekorasi pernikahan, maupun papan bunga untuk peresmian, kami mengerjakan setiap pesanan seolah itu satu-satunya yang kami buat hari itu.",
     image: "images/about.jpg",
-    imageAlt: "Florist's hands arranging a bouquet of fresh red roses"
+    imageAlt: "Tangan florist merangkai buket mawar merah segar"
   },
 
   gallery: {
-    heading: "What We Make"
+    heading: "Rangkaian Kami"
   },
 
   info: {
-    heading: "Hours & Location",
-    hoursLabel: "Hours",
-    addressLabel: "Address",
+    heading: "Jam Buka & Lokasi",
+    hoursLabel: "Jam Buka",
+    addressLabel: "Alamat",
     whatsappLabel: "WhatsApp",
-    directionsLabel: "Get Directions"
+    directionsLabel: "Rute ke Lokasi"
   },
 
   products: [
     {
-      name: "Signature Bouquets",
-      description: "Hand-tied fresh bouquets for any occasion, made to order same-day.",
+      name: "Buket Andalan",
+      description: "Buket bunga segar rangkaian tangan untuk berbagai acara, dibuat sesuai pesanan di hari yang sama.",
       image: "images/gallery-1.jpg",
-      imageAlt: "Hand-tied bouquet of fresh red roses"
+      imageAlt: "Buket mawar merah segar rangkaian tangan"
     },
     {
-      name: "Wedding & Event Florals",
-      description: "Bridal bouquets, arch and aisle florals, and reception centerpieces.",
+      name: "Bunga Pernikahan & Acara",
+      description: "Buket pengantin, dekorasi altar dan lorong, hingga centerpiece resepsi.",
       image: "images/gallery-2.jpg",
-      imageAlt: "White and green wedding flower bouquet"
+      imageAlt: "Buket bunga pernikahan putih dan hijau"
     },
     {
-      name: "Papan Bunga (Congratulation Stands)",
-      description: "Tall standing flower boards for openings, promotions, and celebrations.",
+      name: "Papan Bunga",
+      description: "Papan bunga berdiri untuk peresmian, ucapan selamat, dan perayaan.",
       image: "images/gallery-3.jpg",
-      imageAlt: "Tall standing congratulatory flower arrangement"
+      imageAlt: "Papan bunga ucapan selamat berdiri tinggi"
     },
     {
-      name: "Sympathy & Condolence Flowers",
-      description: "Respectful wreaths and standing arrangements, delivered with care.",
+      name: "Bunga Duka Cita",
+      description: "Karangan bunga dan papan duka cita yang dikirim dengan penuh hormat.",
       image: "images/gallery-4.jpg",
-      imageAlt: "White and purple sympathy flower wreath"
+      imageAlt: "Karangan bunga duka cita putih dan ungu"
     },
     {
-      name: "Table & Home Arrangements",
-      description: "Fresh arrangements sized for desks, tables, and home entryways.",
+      name: "Rangkaian Meja & Rumah",
+      description: "Rangkaian bunga segar berukuran pas untuk meja kerja, meja makan, dan pintu masuk rumah.",
       image: "images/gallery-5.jpg",
-      imageAlt: "White flowers in a green ceramic vase on a wooden table"
+      imageAlt: "Bunga putih dalam vas keramik hijau di atas meja kayu"
     },
     {
-      name: "Custom Orders",
-      description: "Tell us the occasion and budget — we'll design something one-of-a-kind.",
+      name: "Pesanan Custom",
+      description: "Ceritakan acara dan budget Anda — kami rancang sesuatu yang unik khusus untuk Anda.",
       image: "images/gallery-6.jpg",
-      imageAlt: "Choosing fresh roses at a flower stand"
+      imageAlt: "Memilih mawar segar di kios bunga"
     }
   ],
 
   footer: {
-    note: "Made with care in Cikini, Jakarta.",
-    contactLabel: "Contact",
-    addressLabel: "Address",
-    hoursLabel: "Hours"
+    note: "Dibuat dengan sepenuh hati di Cikini, Jakarta.",
+    contactLabel: "Kontak",
+    addressLabel: "Alamat",
+    hoursLabel: "Jam Buka"
   }
 };
