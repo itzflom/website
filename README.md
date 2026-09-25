@@ -91,14 +91,26 @@ On a computer, the panel under the mouse widens. On phones and tablets, all six 
 The background moves in layers so the page feels deep:
 - the sky slowly drifts down into the clouds and zooms in as you scroll;
 - on a computer, the layers tilt slightly as you move the mouse;
-- a few soft clouds (`.fore` in `index.html`) drift **in front of** the page,
-  moving faster than it scrolls, so they look closer.
+- small clouds (`.fore` in `index.html`) drift **in front of** the page, each
+  moving a bit faster than the page scrolls. Faster ones are brighter and look
+  closer; slower ones are fainter and look further away.
 
-Each front cloud is an `<img class="wisp">` with `data-at` (where down the
-page it passes the middle of the screen, 0 to 1), `data-side` (`left` or
-`right`) and `data-size` (width as a % of the screen). Delete the whole
-`<div class="fore">` to switch the front clouds off. Visitors with "reduce
-motion" turned on don't get any of this movement.
+Each front cloud is an `<img class="wisp">` with:
+- `data-at`: where down the page it passes the middle of the screen (0 = top, 1 = bottom)
+- `data-x`: where across the screen its middle sits, in % of the width
+  (under 0 or over 100 makes it hang off the edge)
+- `data-size`: width, in % of the screen width (phones draw them twice as big)
+- `data-speed`: how fast it moves compared with the page, about 1.2 to 1.8
+
+Delete the whole `<div class="fore">` to switch the front clouds off. In newer
+browsers the browser itself moves the layers in step with scrolling; older
+browsers use `script.js`. Visitors with "reduce motion" turned on don't get
+any of this movement.
+
+The team panels' particles and flowing light start only after each panel has
+finished sliding in, and phones get a lighter version (half the particles,
+no glow, swooshes fade in instead of drawing), so older phones don't stutter
+when the team section loads.
 
 ## Contact form
 
@@ -130,10 +142,10 @@ change the `subject` field to change that.
 
 GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
 visitors never get a new page with an old script or stylesheet, `index.html`
-loads them with a version number: `styles.css?v=5`, `script.js?v=5`, and the
-images as `images/sky.webp?v=5` etc. (in `index.html` and `styles.css`).
+loads them with a version number: `styles.css?v=6`, `script.js?v=6`, and the
+images as `images/sky.webp?v=6` etc. (in `index.html` and `styles.css`).
 **Whenever you change `styles.css`, `script.js` or the background, raise that
-number everywhere it appears** (e.g. to `?v=6`). Changes to `index.html` alone
+number everywhere it appears** (e.g. to `?v=7`). Changes to `index.html` alone
 don't need it. If you still see an old version, hard-refresh with
 Ctrl+Shift+R (Cmd+Shift+R on a Mac).
 
