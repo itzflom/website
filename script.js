@@ -4,7 +4,8 @@
  * ============================================================
  * Nothing in here needs editing to change the site's content.
  *  1. Builds the nav + mobile menu from every <section data-nav>.
- *  2. Splits [data-split] text into letters/words for the reveals.
+ *  2. Splits [data-split] text into letters/words for the reveals,
+ *     and builds the artwork for each team panel (.member).
  *  3. Adds the cut-corner outline to every [data-frame].
  *  4. Reveals things (adds .is-in) as they scroll into view.
  *  5. Scroll-linked motion: sky pan, connector lines, CAS journey.
@@ -176,6 +177,155 @@
   toArray(document.querySelectorAll("[data-split]")).forEach(function (el) {
     splitText(el, el.getAttribute("data-split") === "chars" ? "chars" : "words");
   });
+
+  /* ----------------------------------------------------------
+     2b. TEAM PANELS
+     Each <article class="member"> in index.html only holds a name
+     (and role). This builds the artwork around it: colour wash,
+     big vertical name, swoosh lines, and moving particles.
+     ---------------------------------------------------------- */
+  function make(tag, className, text) {
+    var node = document.createElement(tag);
+    node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  /* Small repeatable random generator, so each panel always gets the same swooshes */
+  function seeded(seed) {
+    var s = seed * 7919;
+    return function () {
+      s = (s * 9301 + 49297) % 233280;
+      return s / 233280;
+    };
+  }
+
+  var PARTICLE_SIZE = {
+    embers: [3, 6],
+    bubbles: [6, 16],
+    petals: [8, 14],
+    leaves: [9, 15],
+    sparks: [6, 12]
+  };
+
+  toArray(document.querySelectorAll(".member")).forEach(function (member, index) {
+    var nameEl = member.querySelector(".member__name");
+    var name = nameEl ? nameEl.textContent.trim() : "";
+    var empty = member.classList.contains("member--empty");
+
+    if (!member.hasAttribute("data-frame")) member.setAttribute("data-frame", "12");
+    member.style.setProperty("--mi", index);
+
+    var info = make("div", "member__info");
+    toArray(member.children).forEach(function (child) {
+      if (child.classList.contains("member__role") && !child.textContent.trim()) {
+        child.remove();
+      } else {
+        info.appendChild(child);
+      }
+    });
+
+    var art = make("div", "member__art");
+    var scene = make("div", "member__scene");
+    art.appendChild(scene);
+    var num = make("span", "member__num", String(index + 1).padStart(2, "0"));
+    num.setAttribute("aria-hidden", "true");
+    member.appendChild(art);
+    member.appendChild(num);
+    member.appendChild(info);
+
+    if (empty) return;
+
+    var rand = seeded(index + 3);
+    var photo = member.getAttribute("data-photo");
+
+    if (photo) {
+      var img = document.createElement("img");
+      img.className = "member__photo";
+      img.src = photo;
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      scene.appendChild(img);
+      member.classList.add("member--photo");
+    }
+
+    scene.appendChild(make("div", "member__bg"));
+
+    if (!photo && name) {
+      var initial = make("span", "member__initial", name.charAt(0));
+      initial.setAttribute("aria-hidden", "true");
+      scene.appendChild(initial);
+    }
+
+    var big = make("span", "member__big", name);
+    big.setAttribute("aria-hidden", "true");
+    scene.appendChild(big);
+
+    /* Swooshes: sweeping curves from lower left to upper right */
+    var svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("class", "member__streaks");
+    svg.setAttribute("viewBox", "0 0 200 800");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    for (var j = 0; j < 6; j++) {
+      var y0 = 380 + rand() * 440;
+      var y1 = y0 - (260 + rand() * 360);
+      var d = "M-30 " + y0.toFixed(0) +
+        " C60 " + (y0 - 40 - rand() * 180).toFixed(0) +
+        " 140 " + (y1 + 40 + rand() * 180).toFixed(0) +
+        " 230 " + y1.toFixed(0);
+      var weight = j === 0 ? "wide" : j === 1 ? "mid" : "thin";
+      var layers = weight === "thin" ? ["streak", "flow"] : ["streak"];
+      layers.forEach(function (layer) {
+        var path = document.createElementNS(SVG_NS, "path");
+        path.setAttribute("d", d);
+        path.setAttribute("pathLength", "1");
+        path.setAttribute("class", layer + " " + layer + "--" + weight);
+        path.style.setProperty("--k", j);
+        svg.appendChild(path);
+      });
+    }
+    scene.appendChild(svg);
+
+    /* Particles: embers and bubbles rise, petals and leaves fall, sparks twinkle */
+    var kind = member.getAttribute("data-fx") || "embers";
+    var size = PARTICLE_SIZE[kind] || PARTICLE_SIZE.embers;
+    var fx = make("div", "member__fx");
+    fx.setAttribute("data-kind", kind);
+    for (var k = 0; k < 12; k++) {
+      var p = document.createElement("span");
+      var duration = 5 + rand() * 6;
+      p.style.setProperty("--x", (rand() * 96).toFixed(1) + "%");
+      p.style.setProperty("--y", (8 + rand() * 80).toFixed(1) + "%");
+      p.style.setProperty("--s", (size[0] + rand() * (size[1] - size[0])).toFixed(1) + "px");
+      p.style.setProperty("--dur", duration.toFixed(2) + "s");
+      p.style.setProperty("--delay", (-rand() * duration).toFixed(2) + "s");
+      p.style.setProperty("--dx", ((rand() - 0.5) * 60).toFixed(0) + "px");
+      p.style.setProperty("--r", (rand() * 360).toFixed(0) + "deg");
+      fx.appendChild(p);
+    }
+    scene.appendChild(fx);
+
+    scene.appendChild(make("div", "member__shade"));
+  });
+
+  /* Only animate the particles while the team strip is on screen */
+  if ("IntersectionObserver" in window) {
+    var teamObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.classList.toggle("is-playing", entry.isIntersecting);
+      });
+    });
+    toArray(document.querySelectorAll("[data-team]")).forEach(function (team) {
+      teamObserver.observe(team);
+    });
+  } else {
+    toArray(document.querySelectorAll("[data-team]")).forEach(function (team) {
+      team.classList.add("is-playing");
+    });
+  }
 
   /* ----------------------------------------------------------
      3. FRAMES: cut-corner outline, drawn from the top centre

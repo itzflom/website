@@ -19,6 +19,7 @@ scroll past them.
 | `script.js` | Makes it move: builds the nav, draws the frames, reveals text, scroll effects. You shouldn't need to edit it. |
 | `images/sky.jpg` | The background. |
 | `images/grain.png` | The film-grain texture laid over the sky. |
+| `images/team/` | Teammate photos (see **Team panels** below). |
 
 ## Editing text
 
@@ -46,6 +47,7 @@ sections):
 | Block | Example in | What it looks like |
 |---|---|---|
 | `.split` | About | Two columns with a line between them |
+| `.team` | Team | Tall colour panels, one per person |
 | `.columns` | Values | Three numbered columns with lines between them |
 | `.journey` | CAS Journey | Timeline that fills in as you scroll |
 | `.outcomes` | Outcomes | Rows separated by lines |
@@ -58,6 +60,28 @@ Animation attributes you can put on anything:
 - `data-split="chars"` reveals the text letter by letter (use on headings).
 - `data-split="words"` slides the text up word by word (use on paragraphs).
 - `data-reveal` fades the element up.
+
+## Team panels
+
+The Team section is a strip of tall panels, one per person, each with its
+own colour and moving effect. Each person is one `<article class="member">`
+in `index.html`:
+
+```html
+<article class="member" data-fx="bubbles" data-photo="" style="--c1: #3f8d91; --c2: #a8ded8; --c3: #133a40">
+  <h3 class="member__name">Eshan</h3>
+  <p class="member__role"></p>
+</article>
+```
+
+- **Photo:** put it in `images/team/` and set `data-photo="images/team/eshan.jpg"`.
+  Tall photos work best. With no photo, the panel shows a big initial.
+- **Role:** write it in `member__role`, e.g. `Host`. Empty roles are hidden.
+- **Colours:** `--c1` main, `--c2` light, `--c3` dark.
+- **Effect:** `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, or `sparks`.
+- **Blank panel:** `class="member member--empty"` (used for Ameer for now).
+
+On a computer, the panel under the mouse widens. On a phone, the strip swipes sideways.
 
 ## Before you share it
 
