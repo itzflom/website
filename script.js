@@ -390,7 +390,10 @@
   });
 
   /* ----------------------------------------------------------
-     4. REVEAL ON SCROLL
+     4. REVEAL ON SCROLL, EVERY TIME
+     Things animate in as they enter the screen (scrolling down or
+     up). Once something has left the screen completely, it quietly
+     resets, so it animates in again the next time you reach it.
      Everything that enters the screen together is staggered.
      ---------------------------------------------------------- */
   var revealTargets = toArray(
@@ -406,17 +409,36 @@
       function (entries) {
         var batch = 0;
         entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
           var el = entry.target;
+          if (!entry.isIntersecting || el.classList.contains("is-in")) return;
           el.style.setProperty("--stagger", (batch++ * 0.08).toFixed(2) + "s");
           el.classList.add("is-in");
-          revealObserver.unobserve(el);
         });
       },
       { rootMargin: "0px 0px -8% 0px" }
     );
+
+    /* Reset only once fully off screen, and without animating, so you never see it vanish */
+    var resetObserver = new IntersectionObserver(function (entries) {
+      var gone = entries.filter(function (entry) {
+        return !entry.isIntersecting && entry.target.classList.contains("is-in");
+      }).map(function (entry) {
+        return entry.target;
+      });
+      if (!gone.length) return;
+      gone.forEach(function (el) {
+        el.classList.add("is-reset");
+        el.classList.remove("is-in");
+      });
+      void root.offsetHeight; /* apply the hidden state instantly */
+      gone.forEach(function (el) {
+        el.classList.remove("is-reset");
+      });
+    });
+
     revealTargets.forEach(function (el) {
       revealObserver.observe(el);
+      resetObserver.observe(el);
     });
   }
 
@@ -584,6 +606,68 @@
       if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
       target.focus({ preventScroll: true });
     }
+  });
+
+  /* ----------------------------------------------------------
+     7. CONTACT FORM (Web3Forms)
+     Sends in the background and shows the result under the form.
+     Without JavaScript, the form still posts straight to Web3Forms.
+     ---------------------------------------------------------- */
+  toArray(document.querySelectorAll("[data-contact-form]")).forEach(function (form) {
+    var status = form.querySelector(".contact-form__status");
+    var button = form.querySelector('button[type="submit"]');
+    var label = button ? button.querySelector(".btn__label") : null;
+    var labelText = label ? label.textContent : "";
+
+    function setStatus(text, state) {
+      if (!status) return;
+      status.textContent = text;
+      status.setAttribute("data-state", state);
+    }
+
+    function setSending(sending) {
+      if (!button) return;
+      button.disabled = sending;
+      if (label) label.textContent = sending ? "Sending…" : labelText;
+    }
+
+    form.addEventListener("submit", function (event) {
+      if (!window.fetch || !window.FormData) return;
+      event.preventDefault();
+      setSending(true);
+      setStatus("Sending your message…", "pending");
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form)
+      })
+        .then(function (response) {
+          return response.json().catch(function () {
+            return {};
+          }).then(function (data) {
+            return { ok: response.ok, data: data || {} };
+          });
+        })
+        .then(function (result) {
+          if (result.ok && result.data.success) {
+            form.reset();
+            setStatus("Thank you. Your message has been sent.", "success");
+          } else {
+            var reason = result.data.message || (result.data.body && result.data.body.message);
+            setStatus(
+              "Your message didn’t send" + (reason ? " (" + reason + ")" : "") + ". Please try again.",
+              "error"
+            );
+          }
+        })
+        .catch(function () {
+          setStatus("Your message didn’t send. Check your internet connection and try again.", "error");
+        })
+        .then(function () {
+          setSending(false);
+        });
+    });
   });
 
   /* ----------------------------------------------------------

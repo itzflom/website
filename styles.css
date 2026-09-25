@@ -331,8 +331,15 @@ html.lenis body {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--teal-deep);
-  transition: color 0.5s var(--ease-out);
+  background: none;
+  border: 0;
+  transition: color 0.5s var(--ease-out), opacity 0.3s;
   --cut: 10px;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: progress;
 }
 
 .btn::before {
@@ -1036,6 +1043,90 @@ main {
   }
 }
 
+/* ---- Contact form (sent by Web3Forms) ---- */
+.contact-form {
+  max-width: 640px;
+  margin: clamp(28px, 4vw, 44px) auto 0;
+  text-align: left;
+}
+
+.contact-form__row {
+  display: grid;
+  gap: 0 28px;
+}
+
+@media (min-width: 600px) {
+  .contact-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-form__trap {
+  display: none;
+}
+
+.field {
+  display: block;
+  margin-bottom: 22px;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.field__input {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  transition: border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+textarea.field__input {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.field__input:focus {
+  outline: none;
+  border-bottom-color: var(--teal-deep);
+  box-shadow: 0 1px 0 var(--teal-deep);
+}
+
+.contact-form .actions {
+  margin-top: 10px;
+}
+
+.contact-form__status {
+  min-height: 1.7em;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+.contact-form__status[data-state="success"] {
+  color: var(--teal-deep);
+  font-weight: 500;
+}
+
+.contact-form__status[data-state="error"] {
+  color: #8a2a1f;
+}
+
 /* ---- Team: tall colour panels, one per person ----
    script.js builds the artwork inside each .member. */
 .team {
@@ -1349,39 +1440,33 @@ main {
   }
 }
 
-.team__hint {
-  display: none;
-  margin-top: 14px;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--teal);
-}
-
-/* Phones and tablets: a strip you swipe through */
+/* Tablets: all six at once, 3 across. Phones: 2 across. */
 @media (max-width: 899px) {
   .team {
-    height: clamp(420px, 66vh, 560px);
-    margin-inline: calc(var(--pad) * -1);
-    padding: 0 var(--pad);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--pad);
-    scrollbar-width: none;
-  }
-
-  .team::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: auto;
   }
 
   .member {
-    flex: 0 0 min(70%, 300px);
-    scroll-snap-align: start;
+    aspect-ratio: 3 / 5;
   }
 
-  .team__hint {
-    display: block;
+  .member__big {
+    top: 12px;
+    right: 8px;
+    font-size: 1.7rem;
+  }
+
+  .member__initial {
+    font-size: clamp(3.6rem, 12vw, 5.5rem);
+  }
+}
+
+@media (max-width: 599px) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1437,6 +1522,16 @@ main {
    Only apply once script.js is running (html.js). script.js adds
    .is-in to each element as it scrolls into view.
    ============================================================ */
+
+/* Used by script.js to snap something back to hidden while it's off screen */
+.is-reset,
+.is-reset *,
+.is-reset::before,
+.is-reset::after,
+.is-reset *::before,
+.is-reset *::after {
+  transition: none !important;
+}
 
 /* Frames: outline draws, then the frosted panel fades in */
 .js [data-frame] > .frame__line path {

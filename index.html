@@ -134,7 +134,7 @@
 
         <h2 class="heading" data-split="chars">The people behind the stories.</h2>
 
-        <div class="team" data-team data-lenis-prevent-horizontal>
+        <div class="team" data-team>
           <article class="member" data-fx="embers" data-photo="" style="--c1: #d9772b; --c2: #f8c870; --c3: #5c210e">
             <h3 class="member__name">Mankirat</h3>
             <p class="member__role"></p>
@@ -159,7 +159,6 @@
             <h3 class="member__name">Ameer</h3>
           </article>
         </div>
-        <p class="team__hint" aria-hidden="true">Swipe to see everyone →</p>
       </div>
     </section>
 
@@ -350,11 +349,39 @@
         <h2 class="heading heading--xl" data-split="chars">Have a story worth telling?</h2>
         <p class="intro" data-split="words">We’re looking for real stories, and for people who want to help tell them. Reach out and we’ll talk about it, on your terms.</p>
 
-        <!-- TODO: put your real email address and Instagram link here -->
-        <div class="actions" data-reveal>
-          <a class="btn" href="mailto:ceritanyata@example.com" data-frame="10">Email us</a>
-          <a class="btn" href="https://www.instagram.com/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
-        </div>
+        <!--
+          Messages are sent to the team's inbox by Web3Forms (web3forms.com).
+          The access_key is meant to be public: it can only send messages to that inbox.
+        -->
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form data-reveal>
+          <input type="hidden" name="access_key" value="5a02e537-5cd7-4c4c-8c87-fffdc516f4a0" />
+          <input type="hidden" name="subject" value="New message from the Cerita Nyata website" />
+          <input type="hidden" name="from_name" value="Cerita Nyata website" />
+          <!-- spam trap: people never see this box, bots tick it -->
+          <input type="checkbox" name="botcheck" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="contact-form__row">
+            <label class="field">
+              <span class="field__label">Your name</span>
+              <input class="field__input" type="text" name="name" required autocomplete="name" />
+            </label>
+            <label class="field">
+              <span class="field__label">Your email</span>
+              <input class="field__input" type="email" name="email" required autocomplete="email" />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label">Your story or message</span>
+            <textarea class="field__input" name="message" rows="5" required></textarea>
+          </label>
+
+          <!-- TODO: put your real Instagram link here -->
+          <div class="actions">
+            <button class="btn" type="submit" data-frame="10"><span class="btn__label">Send a message</span></button>
+            <a class="btn" href="https://www.instagram.com/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
+          </div>
+          <p class="contact-form__status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
