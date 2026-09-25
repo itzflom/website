@@ -19,7 +19,7 @@ or back up: once a box has left the screen it resets, so it draws in again.
 | `styles.css` | Colours, fonts, layout, animations. Colours and sizes are at the top (`:root`). |
 | `script.js` | Makes it move: builds the nav, draws the frames, reveals text, scroll effects. You shouldn't need to edit it. |
 | `images/sky.webp` | The background (3600 px wide). `images/sky.jpg` is a fallback for older browsers. |
-| `images/wisp-1.webp` … `wisp-3.webp` | Soft clouds for the 3D layer that drifts in front of the page. |
+| `images/cloud-01.webp` … `cloud-14.webp` | The clouds that drift in front of the page. Each one is a different real cloud. |
 | `images/team/` | Teammate photos (see **Team panels** below). |
 
 ## Editing text
@@ -142,10 +142,10 @@ change the `subject` field to change that.
 
 GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
 visitors never get a new page with an old script or stylesheet, `index.html`
-loads them with a version number: `styles.css?v=6`, `script.js?v=6`, and the
-images as `images/sky.webp?v=6` etc. (in `index.html` and `styles.css`).
+loads them with a version number: `styles.css?v=7`, `script.js?v=7`, and the
+images as `images/sky.webp?v=7` etc. (in `index.html` and `styles.css`).
 **Whenever you change `styles.css`, `script.js` or the background, raise that
-number everywhere it appears** (e.g. to `?v=7`). Changes to `index.html` alone
+number everywhere it appears** (e.g. to `?v=8`). Changes to `index.html` alone
 don't need it. If you still see an old version, hard-refresh with
 Ctrl+Shift+R (Cmd+Shift+R on a Mac).
 
@@ -162,11 +162,17 @@ branch → Branch: `main`, folder: `/ (root)` → Save.** The site goes live at
 
 ## Credits & notes
 
-- Background photo: [Linus Belanger on Unsplash](https://unsplash.com/photos/fluffy-white-clouds-contrast-against-a-dark-blue-sky-3M_qkybLtq4)
-  (Unsplash License, free to use). Built from the 6000 px original: sky
-  extended upward, extra local contrast for fuller clouds, sensor noise
-  smoothed in the plain sky, colour-graded to the Cerita Nyata trifold's cyan.
-  The front clouds are cut from the same photo.
+- Background photo: [Masum Bin Zafar on Unsplash](https://unsplash.com/photos/blue-sky-filled-with-scattered-white-cumulus-clouds-rdtPPy49BSg)
+  (Unsplash License, free to use): scattered small cumulus, recoloured to the
+  Cerita Nyata trifold's cyan sky and cream clouds, with clear sky added on top.
+- Front clouds: each is a single cloud cut out of one of these Unsplash photos
+  (Unsplash License) and recoloured to match:
+  [arrow cloud](https://unsplash.com/photos/a-cloud-shaped-like-an-arrow-in-a-blue-sky-ruOG4S8JbnQ),
+  [single fluffy cloud](https://unsplash.com/photos/a-single-fluffy-cloud-against-a-clear-blue-sky-G4TdiC2dzsQ),
+  [white cloud on deep blue](https://unsplash.com/photos/a-single-white-cloud-against-a-deep-blue-sky-GdPAjMyuWJ8),
+  [fluffy clouds in clear sky](https://unsplash.com/photos/fluffy-white-clouds-in-a-clear-blue-sky-NxvEswaIKJc),
+  [blue sky with white clouds](https://unsplash.com/photos/a-blue-sky-with-white-clouds-_YCQqc4TCyA),
+  [cloudy sky at daytime](https://unsplash.com/photos/cloudy-sky-at-daytime-v9bnfMCyKbg).
 - Font: [Poppins](https://fonts.google.com/specimen/Poppins) (Google Fonts).
 - Smooth scrolling: [Lenis](https://github.com/darkroomengineering/lenis),
   loaded from jsDelivr. If it fails to load, the site still works with normal
