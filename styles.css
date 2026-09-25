@@ -155,8 +155,8 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg?v=7") 50% 0% / cover no-repeat;
-  background-image: image-set(url("images/sky.webp?v=7") type("image/webp"), url("images/sky.jpg?v=7") type("image/jpeg"));
+  background: var(--sky) url("images/sky.jpg?v=8") 50% 0% / cover no-repeat;
+  background-image: image-set(url("images/sky.webp?v=8") type("image/webp"), url("images/sky.jpg?v=8") type("image/jpeg"));
   transform-origin: 50% 30%;
   will-change: transform;
 }
@@ -193,11 +193,11 @@ html.lenis body {
   scale: -1 1;
 }
 
-/* phones: drawn bigger so they still read on a small screen */
+/* phones: drawn a bit bigger so they still read on a small screen */
 @media (max-width: 700px) {
   .wisp {
-    left: calc(var(--x, 50vw) - var(--size, 20vw));
-    width: calc(var(--size, 20vw) * 2);
+    left: calc(var(--x, 50vw) - var(--size, 20vw) * 0.8);
+    width: calc(var(--size, 20vw) * 1.6);
     opacity: max(0.62, var(--o, 0.85));
   }
 }
