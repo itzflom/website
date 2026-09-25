@@ -155,57 +155,81 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg?v=5") 50% 0% / cover no-repeat;
-  background-image: image-set(url("images/sky.webp?v=5") type("image/webp"), url("images/sky.jpg?v=5") type("image/jpeg"));
+  background: var(--sky) url("images/sky.jpg?v=6") 50% 0% / cover no-repeat;
+  background-image: image-set(url("images/sky.webp?v=6") type("image/webp"), url("images/sky.jpg?v=6") type("image/jpeg"));
   transform-origin: 50% 30%;
   will-change: transform;
 }
 
-/* 3D layer: clouds in front of the page. script.js moves them faster than
-   the page scrolls, which is what makes them look closer. */
+/* 3D layer: small clouds in front of the page. They move faster than the page
+   scrolls (each at its own data-speed), which is what makes them look closer.
+   Newer browsers move them in step with scrolling (scroll-driven animations);
+   on older browsers script.js moves them. */
 .fore {
   position: fixed;
   inset: 0;
   z-index: 30;
   overflow: hidden;
   pointer-events: none;
+  visibility: hidden; /* shown once script.js has placed the clouds */
+}
+
+.fore.is-ready {
+  visibility: visible;
 }
 
 .wisp {
   position: absolute;
   top: 0;
-  width: var(--size, 40vw);
+  left: calc(var(--x, 50vw) - var(--size, 20vw) / 2);
+  width: var(--size, 20vw);
   max-width: none;
   height: auto;
-  opacity: 0.88;
-  will-change: transform;
-}
-
-.wisp[data-side="left"] {
-  left: calc(var(--size, 40vw) * -0.38);
-}
-
-.wisp[data-side="right"] {
-  right: calc(var(--size, 40vw) * -0.38);
+  opacity: var(--o, 0.85);
+  will-change: transform, translate;
 }
 
 .wisp--flip {
   scale: -1 1;
 }
 
-/* phones: smaller and fainter, so they only brush the edges of the boxes */
+/* phones: drawn bigger so they still read on a small screen */
 @media (max-width: 700px) {
   .wisp {
-    --size: 62vw !important;
-    opacity: 0.75;
+    left: calc(var(--x, 50vw) - var(--size, 20vw));
+    width: calc(var(--size, 20vw) * 2);
+    opacity: max(0.62, var(--o, 0.85));
   }
+}
 
-  .wisp[data-side="left"] {
-    left: -40vw;
+/* scroll-driven: the browser moves the sky and clouds itself, perfectly in step */
+.sd .sky {
+  animation: sky-pan linear both;
+  animation-timeline: scroll(root);
+}
+
+.sd .wisp {
+  animation: wisp-rise linear both;
+  animation-timeline: scroll(root);
+}
+
+@keyframes sky-pan {
+  from {
+    translate: 0 0;
+    scale: 1.04;
   }
+  to {
+    translate: 0 calc(var(--pan, 0px) * -1);
+    scale: 1.09;
+  }
+}
 
-  .wisp[data-side="right"] {
-    right: -40vw;
+@keyframes wisp-rise {
+  from {
+    translate: 0 var(--from, 0px);
+  }
+  to {
+    translate: 0 var(--to, 0px);
   }
 }
 
@@ -1298,6 +1322,10 @@ textarea.field__input {
   );
 }
 
+.member__scene {
+  will-change: transform; /* slides in as one layer instead of being redrawn */
+}
+
 .member__scene,
 .member__bg,
 .member__photo,
@@ -1488,8 +1516,8 @@ textarea.field__input {
   animation-play-state: paused;
 }
 
-.team.is-playing .member__fx span,
-.team.is-playing .member__fx span::before {
+.team.is-playing .member.is-settled .member__fx span,
+.team.is-playing .member.is-settled .member__fx span::before {
   animation-play-state: running;
 }
 
@@ -1589,7 +1617,7 @@ textarea.field__input {
   to { stroke-dashoffset: 0; }
 }
 
-.team.is-playing .flow {
+.team.is-playing .member.is-settled .flow {
   animation: flow 3.4s linear infinite;
   animation-delay: calc(var(--k) * -0.8s);
 }
@@ -1602,6 +1630,25 @@ textarea.field__input {
 
   .member:hover .member__initial {
     transform: translateY(-50%) scale(1.08);
+  }
+}
+
+/* Touch devices: a lighter team strip so it arrives smoothly on older phones.
+   Half the particles, no glow halos, and no flowing light along the swooshes
+   (the swooshes also fade in instead of drawing, see SCROLL ANIMATIONS). */
+@media (pointer: coarse) {
+  .member__fx span:nth-child(n + 7) {
+    display: none;
+  }
+
+  [data-kind="embers"] span::before,
+  [data-kind="echoes"] span::before,
+  [data-kind="sparks"] span::before {
+    box-shadow: none;
+  }
+
+  .flow {
+    display: none;
   }
 }
 
@@ -1826,6 +1873,19 @@ textarea.field__input {
 
 .js .member.is-in .streak {
   stroke-dashoffset: 0;
+}
+
+/* touch devices: swooshes fade in (cheap) instead of drawing (redrawn every frame) */
+@media (pointer: coarse) {
+  .js .streak {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: opacity 0.8s var(--ease-out) calc(0.6s + var(--stagger, 0s) + var(--mi, 0) * 0.07s);
+  }
+
+  .js .member:not(.is-in) .streak {
+    opacity: 0;
+  }
 }
 
 .js .member__info,

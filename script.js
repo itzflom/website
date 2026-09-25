@@ -418,7 +418,7 @@
 
   if (!("IntersectionObserver" in window)) {
     revealTargets.forEach(function (el) {
-      el.classList.add("is-in");
+      el.classList.add("is-in", "is-settled");
     });
   } else {
     var revealObserver = new IntersectionObserver(
@@ -427,8 +427,15 @@
         entries.forEach(function (entry) {
           var el = entry.target;
           if (!entry.isIntersecting || el.classList.contains("is-in")) return;
-          el.style.setProperty("--stagger", (batch++ * 0.08).toFixed(2) + "s");
+          var stagger = batch++ * 0.08;
+          el.style.setProperty("--stagger", stagger.toFixed(2) + "s");
           el.classList.add("is-in");
+          /* team panels: start their particles only once they've finished sliding in */
+          if (el.classList.contains("member")) {
+            el._settle = setTimeout(function () {
+              el.classList.add("is-settled");
+            }, 1500 + stagger * 1000);
+          }
         });
       },
       { rootMargin: "0px 0px -8% 0px" }
@@ -443,8 +450,9 @@
       });
       if (!gone.length) return;
       gone.forEach(function (el) {
+        clearTimeout(el._settle);
         el.classList.add("is-reset");
-        el.classList.remove("is-in");
+        el.classList.remove("is-in", "is-settled");
       });
       void root.offsetHeight; /* apply the hidden state instantly */
       gone.forEach(function (el) {
@@ -477,11 +485,22 @@
   var maxScroll = 1;
   var skyPan = 0;
 
-  /* 3D layer: each wisp passes the middle of the screen at its data-at point
-     of the page, moving WISP_SPEED times faster than the page (so it looks closer) */
-  var WISP_SPEED = 1.6;
+  /* 3D layer. Each cloud passes the middle of the screen at its data-at point
+     of the page, moving data-speed times faster than the page (faster = closer).
+     Newer browsers move the sky and clouds with scroll-driven CSS animations
+     (.sd), perfectly in step with scrolling; script.js only feeds in the sizes.
+     On older browsers script.js moves them on every frame. */
+  var finePointer = window.matchMedia("(pointer: fine)").matches;
+  var scrollDriven = !reduceMotion && !!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"));
+  root.classList.toggle("sd", scrollDriven);
+  var fore = document.querySelector(".fore");
+
   var wisps = toArray(document.querySelectorAll(".wisp")).map(function (img) {
-    img.style.setProperty("--size", (parseFloat(img.getAttribute("data-size")) || 40) + "vw");
+    var speed = parseFloat(img.getAttribute("data-speed")) || 1.5;
+    img.style.setProperty("--size", (parseFloat(img.getAttribute("data-size")) || 20) + "vw");
+    img.style.setProperty("--x", (parseFloat(img.getAttribute("data-x")) || 50) + "vw");
+    /* nearer (faster) clouds are brighter, farther ones fainter */
+    img.style.setProperty("--o", clamp(0.5 + (speed - 1.2) * 0.7, 0.55, 0.92).toFixed(2));
     img.addEventListener("load", function () {
       measure();
       requestUpdate();
@@ -489,7 +508,7 @@
     return {
       el: img,
       at: parseFloat(img.getAttribute("data-at")) || 0,
-      side: img.getAttribute("data-side") === "left" ? -1 : 1,
+      speed: speed,
       h: 0,
       hidden: false
     };
@@ -497,7 +516,8 @@
 
   /* Mouse tilt: layers shift slightly with the pointer (eased) */
   var mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+  var lastTilt = "";
+  if (!reduceMotion && finePointer) {
     window.addEventListener("pointermove", function (event) {
       mouse.tx = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.ty = (event.clientY / window.innerHeight) * 2 - 1;
@@ -531,9 +551,17 @@
   function measure() {
     maxScroll = Math.max(1, root.scrollHeight - window.innerHeight);
     skyPan = sky ? sky.offsetHeight - sky.offsetHeight / 1.4 : 0;
+    var vh = window.innerHeight;
     wisps.forEach(function (w) {
       w.h = w.el.offsetHeight;
+      if (scrollDriven) {
+        /* where the cloud sits at the very top and the very bottom of the page */
+        w.el.style.setProperty("--from", (vh / 2 + w.at * maxScroll * w.speed - w.h / 2).toFixed(1) + "px");
+        w.el.style.setProperty("--to", (vh / 2 + (w.at - 1) * maxScroll * w.speed - w.h / 2).toFixed(1) + "px");
+      }
     });
+    if (scrollDriven && sky) sky.style.setProperty("--pan", skyPan.toFixed(1) + "px");
+    if (fore) fore.classList.add("is-ready");
     journeys.forEach(layoutJourney);
   }
 
@@ -551,27 +579,37 @@
     mouse.y += (mouse.ty - mouse.y) * 0.08;
     var easing = Math.abs(mouse.tx - mouse.x) + Math.abs(mouse.ty - mouse.y) > 0.002;
 
-    /* the sky drifts down into the clouds and slowly zooms in as you scroll */
-    var progress = clamp(y / maxScroll, 0, 1);
-    if (sky) {
-      sky.style.transform = "translate3d(" + (-mouse.x * 14).toFixed(1) + "px," +
-        (-progress * skyPan - mouse.y * 10).toFixed(1) + "px,0) scale(" + (1.04 + progress * 0.05).toFixed(4) + ")";
+    /* older browsers: move the sky (drifting down and zooming in)
+       and the clouds on every frame */
+    if (!scrollDriven) {
+      var progress = clamp(y / maxScroll, 0, 1);
+      if (sky) {
+        sky.style.translate = "0 " + (-progress * skyPan).toFixed(1) + "px";
+        sky.style.scale = (1.04 + progress * 0.05).toFixed(4);
+      }
+      wisps.forEach(function (w) {
+        var top = vh / 2 + (w.at * maxScroll - y) * w.speed - w.h / 2;
+        var onScreen = top < vh + 40 && top + w.h > -40;
+        if (onScreen === w.hidden) {
+          w.hidden = !onScreen;
+          w.el.style.visibility = onScreen ? "" : "hidden";
+        }
+        if (onScreen) w.el.style.translate = "0 " + top.toFixed(1) + "px";
+      });
     }
 
-    wisps.forEach(function (w) {
-      var offset = (w.at * maxScroll - y) * WISP_SPEED;
-      var top = vh / 2 + offset - w.h / 2;
-      var onScreen = top < vh + 40 && top + w.h > -40;
-      if (onScreen === w.hidden) {
-        w.hidden = !onScreen;
-        w.el.style.visibility = onScreen ? "" : "hidden";
+    /* mouse tilt, on top of whichever movement is used (nearer clouds shift more) */
+    var tilt = mouse.x.toFixed(3) + "," + mouse.y.toFixed(3);
+    if (tilt !== lastTilt) {
+      lastTilt = tilt;
+      if (sky) {
+        sky.style.transform = "translate3d(" + (-mouse.x * 14).toFixed(1) + "px," + (-mouse.y * 10).toFixed(1) + "px,0)";
       }
-      if (!onScreen) return;
-      /* slides in from its edge as it arrives and back out as it leaves */
-      var drift = Math.abs(offset) * 0.05 * w.side;
-      w.el.style.transform = "translate3d(" + (drift + mouse.x * 36).toFixed(1) + "px," +
-        (top + mouse.y * 22).toFixed(1) + "px,0)";
-    });
+      wisps.forEach(function (w) {
+        w.el.style.transform = "translate3d(" + (mouse.x * 22 * w.speed).toFixed(1) + "px," +
+          (mouse.y * 13 * w.speed).toFixed(1) + "px,0)";
+      });
+    }
 
     connectors.forEach(function (el) {
       var r = el.getBoundingClientRect();
