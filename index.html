@@ -115,7 +115,56 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 02 VALUES ============================== -->
+    <!-- ============================== 02 TEAM ============================== -->
+    <!--
+      One <article class="member"> per person. For each one you can change:
+        --c1 / --c2 / --c3  their panel's main, light, and dark colour
+        data-fx             the effect in their panel: embers, petals, bubbles, leaves, or sparks
+        data-photo          put a photo in images/team/ and write its path, e.g. "images/team/eshan.jpg"
+                            (leave it empty to show a big initial instead)
+        member__role        optional, e.g. "Host" or "Editor". Leave it empty to hide it.
+      class="member member--empty" makes a blank placeholder panel.
+    -->
+    <section class="section" id="team" data-nav="Team">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>Meet the team</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars">The people behind the stories.</h2>
+
+        <div class="team" data-team>
+          <article class="member" data-fx="embers" data-photo="" style="--c1: #d9772b; --c2: #f8c870; --c3: #5c210e">
+            <h3 class="member__name">Mankirat</h3>
+            <p class="member__role"></p>
+          </article>
+          <article class="member" data-fx="petals" data-photo="" style="--c1: #d97c98; --c2: #fbd3dc; --c3: #62233d">
+            <h3 class="member__name">Kenzie</h3>
+            <p class="member__role"></p>
+          </article>
+          <article class="member" data-fx="bubbles" data-photo="" style="--c1: #3f8d91; --c2: #a8ded8; --c3: #133a40">
+            <h3 class="member__name">Eshan</h3>
+            <p class="member__role"></p>
+          </article>
+          <article class="member" data-fx="leaves" data-photo="" style="--c1: #6e9c57; --c2: #d4e8a6; --c3: #213f24">
+            <h3 class="member__name">Krish</h3>
+            <p class="member__role"></p>
+          </article>
+          <article class="member" data-fx="sparks" data-photo="" style="--c1: #7b6cc0; --c2: #d8d0f6; --c3: #2a2352">
+            <h3 class="member__name">Tristan</h3>
+            <p class="member__role"></p>
+          </article>
+          <article class="member member--empty">
+            <h3 class="member__name">Ameer</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 03 VALUES ============================== -->
     <section class="section" id="values" data-nav="Values">
       <div class="frame" data-frame>
         <div class="frame__head">
@@ -150,7 +199,7 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 03 CAS JOURNEY ============================== -->
+    <!-- ============================== 04 CAS JOURNEY ============================== -->
     <section class="section" id="journey" data-nav="CAS Journey">
       <div class="frame" data-frame>
         <div class="frame__head">
@@ -201,7 +250,7 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 04 LEARNING OUTCOMES ============================== -->
+    <!-- ============================== 05 LEARNING OUTCOMES ============================== -->
     <section class="section" id="outcomes" data-nav="Outcomes">
       <div class="frame" data-frame>
         <div class="frame__head">
@@ -260,7 +309,7 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 05 STORIES ============================== -->
+    <!-- ============================== 06 STORIES ============================== -->
     <section class="section" id="stories" data-nav="Stories">
       <div class="frame" data-frame>
         <div class="frame__head">
@@ -289,7 +338,7 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 06 CONTACT ============================== -->
+    <!-- ============================== 07 CONTACT ============================== -->
     <section class="section" id="contact" data-nav="Contact">
       <div class="frame frame--center" data-frame>
         <div class="frame__head">
@@ -300,11 +349,39 @@
         <h2 class="heading heading--xl" data-split="chars">Have a story worth telling?</h2>
         <p class="intro" data-split="words">We’re looking for real stories, and for people who want to help tell them. Reach out and we’ll talk about it, on your terms.</p>
 
-        <!-- TODO: put your real email address and Instagram link here -->
-        <div class="actions" data-reveal>
-          <a class="btn" href="mailto:ceritanyata@example.com" data-frame="10">Email us</a>
-          <a class="btn" href="https://www.instagram.com/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
-        </div>
+        <!--
+          Messages are sent to the team's inbox by Web3Forms (web3forms.com).
+          The access_key is meant to be public: it can only send messages to that inbox.
+        -->
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form data-reveal>
+          <input type="hidden" name="access_key" value="5a02e537-5cd7-4c4c-8c87-fffdc516f4a0" />
+          <input type="hidden" name="subject" value="New message from the Cerita Nyata website" />
+          <input type="hidden" name="from_name" value="Cerita Nyata website" />
+          <!-- spam trap: people never see this box, bots tick it -->
+          <input type="checkbox" name="botcheck" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="contact-form__row">
+            <label class="field">
+              <span class="field__label">Your name</span>
+              <input class="field__input" type="text" name="name" required autocomplete="name" />
+            </label>
+            <label class="field">
+              <span class="field__label">Your email</span>
+              <input class="field__input" type="email" name="email" required autocomplete="email" />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label">Your story or message</span>
+            <textarea class="field__input" name="message" rows="5" required></textarea>
+          </label>
+
+          <!-- TODO: put your real Instagram link here -->
+          <div class="actions">
+            <button class="btn" type="submit" data-frame="10"><span class="btn__label">Send a message</span></button>
+            <a class="btn" href="https://www.instagram.com/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
+          </div>
+          <p class="contact-form__status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 

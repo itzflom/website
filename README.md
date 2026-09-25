@@ -8,7 +8,8 @@ The look: the teal-and-cream cloud sky from the Cerita Nyata trifold, with
 thin ink lines that **draw themselves in as you scroll**. Frames trace their
 cut-corner outlines, hairlines slice across, headings reveal letter by letter,
 and the lines joining each section (and the CAS journey timeline) grow as you
-scroll past them.
+scroll past them. This happens every time you reach something, scrolling down
+or back up: once a box has left the screen it resets, so it draws in again.
 
 ## Files
 
@@ -19,6 +20,7 @@ scroll past them.
 | `script.js` | Makes it move: builds the nav, draws the frames, reveals text, scroll effects. You shouldn't need to edit it. |
 | `images/sky.jpg` | The background. |
 | `images/grain.png` | The film-grain texture laid over the sky. |
+| `images/team/` | Teammate photos (see **Team panels** below). |
 
 ## Editing text
 
@@ -46,11 +48,13 @@ sections):
 | Block | Example in | What it looks like |
 |---|---|---|
 | `.split` | About | Two columns with a line between them |
+| `.team` | Team | Tall colour panels, one per person |
 | `.columns` | Values | Three numbered columns with lines between them |
 | `.journey` | CAS Journey | Timeline that fills in as you scroll |
 | `.outcomes` | Outcomes | Rows separated by lines |
 | `.cards` | Stories | Framed cards (turn an `<article>` into `<a href="...">` to link it) |
 | `.actions` + `.btn` | Contact | Framed buttons |
+| `.contact-form` | Contact | Message form (see **Contact form** below) |
 
 Animation attributes you can put on anything:
 
@@ -59,10 +63,46 @@ Animation attributes you can put on anything:
 - `data-split="words"` slides the text up word by word (use on paragraphs).
 - `data-reveal` fades the element up.
 
+## Team panels
+
+The Team section is a strip of tall panels, one per person, each with its
+own colour and moving effect. Each person is one `<article class="member">`
+in `index.html`:
+
+```html
+<article class="member" data-fx="bubbles" data-photo="" style="--c1: #3f8d91; --c2: #a8ded8; --c3: #133a40">
+  <h3 class="member__name">Eshan</h3>
+  <p class="member__role"></p>
+</article>
+```
+
+- **Photo:** put it in `images/team/` and set `data-photo="images/team/eshan.jpg"`.
+  Tall photos work best. With no photo, the panel shows a big initial.
+- **Role:** write it in `member__role`, e.g. `Host`. Empty roles are hidden.
+- **Colours:** `--c1` main, `--c2` light, `--c3` dark.
+- **Effect:** `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, or `sparks`.
+- **Blank panel:** `class="member member--empty"` (used for Ameer for now).
+
+On a computer, the panel under the mouse widens. On phones and tablets, all six show at once in a grid.
+
+## Contact form
+
+The "Send a message" form in the Contact section is sent by
+[Web3Forms](https://web3forms.com) to the inbox your access key was created
+with. The key is the `access_key` field in the form in `index.html`. It is
+meant to be public (Web3Forms is designed to be used from web pages, and the
+key can only send messages to your inbox), so it's fine that it's in this
+repo. If it ever gets abused for spam, make a new key in your Web3Forms
+dashboard and replace it there. A hidden `botcheck` box catches most spam bots.
+
+Messages arrive with the subject "New message from the Cerita Nyata website";
+change the `subject` field to change that.
+
 ## Before you share it
 
-- **Contact links:** in the Contact section, replace `ceritanyata@example.com`
-  and the Instagram link with your real ones.
+- **Instagram:** in the Contact section, replace the Instagram link with yours.
+- **Test the form:** send yourself one message from the live site to check it
+  arrives.
 - **Stories:** when an episode or film is out, update its card and link it.
 - **CAS journey / outcomes:** the text describes the plan for each stage. As
   you complete stages, rewrite them with what you actually did. That makes

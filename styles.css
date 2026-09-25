@@ -331,8 +331,15 @@ html.lenis body {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--teal-deep);
-  transition: color 0.5s var(--ease-out);
+  background: none;
+  border: 0;
+  transition: color 0.5s var(--ease-out), opacity 0.3s;
   --cut: 10px;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: progress;
 }
 
 .btn::before {
@@ -1036,6 +1043,433 @@ main {
   }
 }
 
+/* ---- Contact form (sent by Web3Forms) ---- */
+.contact-form {
+  max-width: 640px;
+  margin: clamp(28px, 4vw, 44px) auto 0;
+  text-align: left;
+}
+
+.contact-form__row {
+  display: grid;
+  gap: 0 28px;
+}
+
+@media (min-width: 600px) {
+  .contact-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-form__trap {
+  display: none;
+}
+
+.field {
+  display: block;
+  margin-bottom: 22px;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.field__input {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  transition: border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+textarea.field__input {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.field__input:focus {
+  outline: none;
+  border-bottom-color: var(--teal-deep);
+  box-shadow: 0 1px 0 var(--teal-deep);
+}
+
+.contact-form .actions {
+  margin-top: 10px;
+}
+
+.contact-form__status {
+  min-height: 1.7em;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+.contact-form__status[data-state="success"] {
+  color: var(--teal-deep);
+  font-weight: 500;
+}
+
+.contact-form__status[data-state="error"] {
+  color: #8a2a1f;
+}
+
+/* ---- Team: tall colour panels, one per person ----
+   script.js builds the artwork inside each .member. */
+.team {
+  display: flex;
+  gap: 12px;
+  height: clamp(440px, 70vh, 640px);
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.member {
+  flex: 1 1 0;
+  min-width: 0;
+  color: #fff;
+  --cut: 12px;
+  --stroke: rgba(19, 42, 46, 0.55);
+  transition: flex-grow 0.9s var(--ease-out);
+}
+
+.member__art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: polygon(
+    var(--cut) 0, calc(100% - var(--cut)) 0,
+    100% var(--cut), 100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%, var(--cut) 100%,
+    0 calc(100% - var(--cut)), 0 var(--cut)
+  );
+}
+
+.member__scene,
+.member__bg,
+.member__photo,
+.member__streaks,
+.member__fx,
+.member__shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.member__bg {
+  background:
+    radial-gradient(130% 55% at 25% 18%, var(--c2) 0%, transparent 62%),
+    linear-gradient(168deg, var(--c2) -12%, var(--c1) 42%, var(--c3) 100%);
+}
+
+/* soft diagonal band of light */
+.member__bg::after {
+  content: "";
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  top: 38%;
+  height: 26%;
+  background: linear-gradient(90deg, transparent, var(--c2), transparent);
+  opacity: 0.45;
+  filter: blur(14px);
+  transform: rotate(-28deg);
+}
+
+.member__photo {
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.member--photo .member__bg {
+  mix-blend-mode: soft-light;
+  opacity: 0.85;
+}
+
+.member__initial {
+  position: absolute;
+  left: 12px;
+  top: 44%;
+  transform: translateY(-50%);
+  transform-origin: left center;
+  font-size: clamp(5rem, 7.2vw, 7.8rem);
+  font-weight: 300;
+  line-height: 1;
+  text-shadow: 0 0 40px var(--c1), 0 2px 18px rgba(0, 0, 0, 0.18);
+  transition: transform 0.9s var(--ease-out);
+}
+
+.member__big {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  writing-mode: vertical-rl;
+  font-size: clamp(2.2rem, 3.4vw, 3.3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+}
+
+.member__streaks {
+  overflow: visible;
+}
+
+.member__streaks path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.streak--wide {
+  stroke: var(--c2);
+  stroke-width: 26;
+  opacity: 0.2;
+}
+
+.streak--mid {
+  stroke: var(--c2);
+  stroke-width: 8;
+  opacity: 0.4;
+}
+
+.streak--thin {
+  stroke: #fff;
+  stroke-width: 1.4;
+  opacity: 0.75;
+}
+
+.flow {
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-dasharray: 0.07 0.93;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out) 2s;
+}
+
+.member.is-in .flow {
+  opacity: 0.85;
+}
+
+.member__shade {
+  top: 45%;
+  height: 55%;
+  background: linear-gradient(to top, var(--c3) 5%, transparent);
+  opacity: 0.9;
+}
+
+.member__num {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+}
+
+.member__info {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 18px;
+  z-index: 2;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+}
+
+.member__name {
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.member__role {
+  margin-top: 4px;
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Blank placeholder panel */
+.member--empty .member__art {
+  background: rgba(45, 90, 94, 0.08);
+}
+
+.member--empty .member__num,
+.member--empty .member__info {
+  color: var(--teal);
+  text-shadow: none;
+}
+
+/* Particles */
+.member__fx {
+  pointer-events: none;
+}
+
+.member__fx span {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: var(--s);
+  height: 100%;
+  animation: fx-rise var(--dur) linear var(--delay) infinite;
+  animation-play-state: paused;
+}
+
+.member__fx span::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--s);
+  height: var(--s);
+  animation: fx-sway calc(var(--dur) / 2) ease-in-out var(--delay) infinite alternate;
+  animation-play-state: paused;
+}
+
+.team.is-playing .member__fx span,
+.team.is-playing .member__fx span::before {
+  animation-play-state: running;
+}
+
+[data-kind="embers"] span::before {
+  border-radius: 50%;
+  background: var(--c2);
+  box-shadow: 0 0 10px var(--c2), 0 0 3px #fff;
+}
+
+[data-kind="bubbles"] span::before {
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), transparent 60%);
+}
+
+[data-kind="petals"] span,
+[data-kind="leaves"] span {
+  animation-name: fx-fall;
+}
+
+[data-kind="petals"] span::before {
+  height: calc(var(--s) * 0.65);
+  border-radius: 100% 0 100% 0;
+  background: var(--c2);
+  opacity: 0.9;
+}
+
+[data-kind="leaves"] span::before {
+  height: calc(var(--s) * 0.55);
+  border-radius: 0 100% 0 100%;
+  background: linear-gradient(135deg, var(--c2), var(--c1));
+}
+
+[data-kind="sparks"] span {
+  top: var(--y);
+  height: var(--s);
+  animation-name: fx-twinkle;
+}
+
+[data-kind="sparks"] span::before {
+  background: #fff;
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  box-shadow: 0 0 8px #fff;
+  animation: none;
+}
+
+@keyframes fx-rise {
+  0% { transform: translate3d(0, 102%, 0); opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 0.9; }
+  100% { transform: translate3d(0, -4%, 0); opacity: 0; }
+}
+
+@keyframes fx-fall {
+  0% { transform: translate3d(0, -4%, 0); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 0.9; }
+  100% { transform: translate3d(0, 102%, 0); opacity: 0; }
+}
+
+@keyframes fx-sway {
+  from { transform: translateX(0) rotate(var(--r)); }
+  to { transform: translateX(var(--dx)) rotate(calc(var(--r) + 160deg)); }
+}
+
+@keyframes fx-twinkle {
+  0%, 100% { transform: scale(0.2); opacity: 0; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes flow {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.team.is-playing .flow {
+  animation: flow 3.4s linear infinite;
+  animation-delay: calc(var(--k) * -0.8s);
+}
+
+/* The panel you point at widens */
+@media (hover: hover) and (min-width: 900px) {
+  .member:hover {
+    flex-grow: 2.3;
+  }
+
+  .member:hover .member__initial {
+    transform: translateY(-50%) scale(1.08);
+  }
+}
+
+/* Tablets: all six at once, 3 across. Phones: 2 across. */
+@media (max-width: 899px) {
+  .team {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: auto;
+  }
+
+  .member {
+    aspect-ratio: 3 / 5;
+  }
+
+  .member__big {
+    top: 12px;
+    right: 8px;
+    font-size: 1.7rem;
+  }
+
+  .member__initial {
+    font-size: clamp(3.6rem, 12vw, 5.5rem);
+  }
+}
+
+@media (max-width: 599px) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -1088,6 +1522,16 @@ main {
    Only apply once script.js is running (html.js). script.js adds
    .is-in to each element as it scrolls into view.
    ============================================================ */
+
+/* Used by script.js to snap something back to hidden while it's off screen */
+.is-reset,
+.is-reset *,
+.is-reset::before,
+.is-reset::after,
+.is-reset *::before,
+.is-reset *::after {
+  transition: none !important;
+}
 
 /* Frames: outline draws, then the frosted panel fades in */
 .js [data-frame] > .frame__line path {
@@ -1190,6 +1634,45 @@ main {
   transform: none;
 }
 
+/* Team panels wipe up, then their swooshes draw and the names fade in */
+.js .member__scene {
+  transform: translate3d(0, 101%, 0);
+  transition: transform 1.3s var(--ease-out) calc(0.15s + var(--stagger, 0s) + var(--mi, 0) * 0.07s);
+}
+
+.js .member.is-in .member__scene {
+  transform: none;
+}
+
+.js .streak {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s var(--ease-draw)
+    calc(0.6s + var(--stagger, 0s) + var(--mi, 0) * 0.07s + var(--k, 0) * 0.1s);
+}
+
+.js .member.is-in .streak {
+  stroke-dashoffset: 0;
+}
+
+.js .member__info,
+.js .member__num {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 0.9s var(--ease-out), transform 1s var(--ease-out);
+  transition-delay: calc(0.8s + var(--stagger, 0s) + var(--mi, 0) * 0.07s);
+}
+
+.js .member.is-in .member__info {
+  opacity: 1;
+  transform: none;
+}
+
+.js .member.is-in .member__num {
+  opacity: 0.8;
+  transform: none;
+}
+
 /* Scroll-linked lines start empty and fill as you scroll */
 .js .connector span {
   transform: scaleY(var(--p, 0));
@@ -1248,6 +1731,29 @@ main {
 
   .scroll-cue__line::after {
     animation: none;
+  }
+
+  .js .member__scene,
+  .js .member__info,
+  .js .member__num {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+
+  .js .streak {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .member__fx,
+  .flow {
+    display: none;
+  }
+
+  .member,
+  .member__initial {
+    transition: none;
   }
 
   .btn::before,
