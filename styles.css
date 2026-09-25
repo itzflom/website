@@ -155,7 +155,7 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg") 50% 0% / cover no-repeat;
+  background: var(--sky) url("images/sky.jpg?v=4") 50% 0% / cover no-repeat;
   will-change: transform;
 }
 

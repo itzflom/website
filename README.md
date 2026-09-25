@@ -111,6 +111,17 @@ change the `subject` field to change that.
   you complete stages, rewrite them with what you actually did. That makes
   this page useful evidence for your CAS portfolio.
 
+## Updating the live site
+
+GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
+visitors never get a new page with an old script or stylesheet, `index.html`
+loads them with a version number: `styles.css?v=4`, `script.js?v=4`, and the
+background as `images/sky.jpg?v=4` (in `index.html` and `styles.css`).
+**Whenever you change `styles.css`, `script.js` or the background, raise that
+number everywhere it appears** (e.g. to `?v=5`). Changes to `index.html` alone
+don't need it. If you still see an old version, hard-refresh with
+Ctrl+Shift+R (Cmd+Shift+R on a Mac).
+
 ## Preview locally
 
 Open `index.html` in a browser, or run `python3 -m http.server 8080` in this
