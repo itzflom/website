@@ -477,6 +477,34 @@
   var maxScroll = 1;
   var skyPan = 0;
 
+  /* 3D layer: each wisp passes the middle of the screen at its data-at point
+     of the page, moving WISP_SPEED times faster than the page (so it looks closer) */
+  var WISP_SPEED = 1.6;
+  var wisps = toArray(document.querySelectorAll(".wisp")).map(function (img) {
+    img.style.setProperty("--size", (parseFloat(img.getAttribute("data-size")) || 40) + "vw");
+    img.addEventListener("load", function () {
+      measure();
+      requestUpdate();
+    });
+    return {
+      el: img,
+      at: parseFloat(img.getAttribute("data-at")) || 0,
+      side: img.getAttribute("data-side") === "left" ? -1 : 1,
+      h: 0,
+      hidden: false
+    };
+  });
+
+  /* Mouse tilt: layers shift slightly with the pointer (eased) */
+  var mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener("pointermove", function (event) {
+      mouse.tx = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.ty = (event.clientY / window.innerHeight) * 2 - 1;
+      requestUpdate();
+    }, { passive: true });
+  }
+
   /* Stretch each journey's track from its first node to its last */
   function layoutJourney(j) {
     if (j.nodes.length < 2 || !j.track) return;
@@ -503,6 +531,9 @@
   function measure() {
     maxScroll = Math.max(1, root.scrollHeight - window.innerHeight);
     skyPan = sky ? sky.offsetHeight - sky.offsetHeight / 1.4 : 0;
+    wisps.forEach(function (w) {
+      w.h = w.el.offsetHeight;
+    });
     journeys.forEach(layoutJourney);
   }
 
@@ -516,10 +547,31 @@
 
     if (reduceMotion) return;
 
+    mouse.x += (mouse.tx - mouse.x) * 0.08;
+    mouse.y += (mouse.ty - mouse.y) * 0.08;
+    var easing = Math.abs(mouse.tx - mouse.x) + Math.abs(mouse.ty - mouse.y) > 0.002;
+
+    /* the sky drifts down into the clouds and slowly zooms in as you scroll */
+    var progress = clamp(y / maxScroll, 0, 1);
     if (sky) {
-      var pan = clamp(y / maxScroll, 0, 1) * skyPan;
-      sky.style.transform = "translate3d(0," + (-pan).toFixed(1) + "px,0)";
+      sky.style.transform = "translate3d(" + (-mouse.x * 14).toFixed(1) + "px," +
+        (-progress * skyPan - mouse.y * 10).toFixed(1) + "px,0) scale(" + (1.04 + progress * 0.05).toFixed(4) + ")";
     }
+
+    wisps.forEach(function (w) {
+      var offset = (w.at * maxScroll - y) * WISP_SPEED;
+      var top = vh / 2 + offset - w.h / 2;
+      var onScreen = top < vh + 40 && top + w.h > -40;
+      if (onScreen === w.hidden) {
+        w.hidden = !onScreen;
+        w.el.style.visibility = onScreen ? "" : "hidden";
+      }
+      if (!onScreen) return;
+      /* slides in from its edge as it arrives and back out as it leaves */
+      var drift = Math.abs(offset) * 0.05 * w.side;
+      w.el.style.transform = "translate3d(" + (drift + mouse.x * 36).toFixed(1) + "px," +
+        (top + mouse.y * 22).toFixed(1) + "px,0)";
+    });
 
     connectors.forEach(function (el) {
       var r = el.getBoundingClientRect();
@@ -539,6 +591,8 @@
         stage.classList.toggle("is-active", p >= j.stops[i] - 0.001);
       });
     });
+
+    if (easing) requestUpdate();
   }
 
   var ticking = false;

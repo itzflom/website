@@ -18,7 +18,8 @@ or back up: once a box has left the screen it resets, so it draws in again.
 | `index.html` | All the content. Every section of the page lives here. |
 | `styles.css` | Colours, fonts, layout, animations. Colours and sizes are at the top (`:root`). |
 | `script.js` | Makes it move: builds the nav, draws the frames, reveals text, scroll effects. You shouldn't need to edit it. |
-| `images/sky.jpg` | The background (3200 px wide). |
+| `images/sky.webp` | The background (3600 px wide). `images/sky.jpg` is a fallback for older browsers. |
+| `images/wisp-1.webp` … `wisp-3.webp` | Soft clouds for the 3D layer that drifts in front of the page. |
 | `images/team/` | Teammate photos (see **Team panels** below). |
 
 ## Editing text
@@ -85,6 +86,20 @@ in `index.html`:
 
 On a computer, the panel under the mouse widens. On phones and tablets, all six show at once in a grid.
 
+## 3D clouds
+
+The background moves in layers so the page feels deep:
+- the sky slowly drifts down into the clouds and zooms in as you scroll;
+- on a computer, the layers tilt slightly as you move the mouse;
+- a few soft clouds (`.fore` in `index.html`) drift **in front of** the page,
+  moving faster than it scrolls, so they look closer.
+
+Each front cloud is an `<img class="wisp">` with `data-at` (where down the
+page it passes the middle of the screen, 0 to 1), `data-side` (`left` or
+`right`) and `data-size` (width as a % of the screen). Delete the whole
+`<div class="fore">` to switch the front clouds off. Visitors with "reduce
+motion" turned on don't get any of this movement.
+
 ## Contact form
 
 The **Send a message** button in the Contact section (and **Share your
@@ -111,6 +126,17 @@ change the `subject` field to change that.
   you complete stages, rewrite them with what you actually did. That makes
   this page useful evidence for your CAS portfolio.
 
+## Updating the live site
+
+GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
+visitors never get a new page with an old script or stylesheet, `index.html`
+loads them with a version number: `styles.css?v=5`, `script.js?v=5`, and the
+images as `images/sky.webp?v=5` etc. (in `index.html` and `styles.css`).
+**Whenever you change `styles.css`, `script.js` or the background, raise that
+number everywhere it appears** (e.g. to `?v=6`). Changes to `index.html` alone
+don't need it. If you still see an old version, hard-refresh with
+Ctrl+Shift+R (Cmd+Shift+R on a Mac).
+
 ## Preview locally
 
 Open `index.html` in a browser, or run `python3 -m http.server 8080` in this
@@ -125,9 +151,10 @@ branch → Branch: `main`, folder: `/ (root)` → Save.** The site goes live at
 ## Credits & notes
 
 - Background photo: [Linus Belanger on Unsplash](https://unsplash.com/photos/fluffy-white-clouds-contrast-against-a-dark-blue-sky-3M_qkybLtq4)
-  (Unsplash License, free to use). Built from a 3840 px copy: sky extended
-  upward, sensor noise smoothed in the plain sky, colour-graded to match the
-  Cerita Nyata trifold.
+  (Unsplash License, free to use). Built from the 6000 px original: sky
+  extended upward, extra local contrast for fuller clouds, sensor noise
+  smoothed in the plain sky, colour-graded to the Cerita Nyata trifold's cyan.
+  The front clouds are cut from the same photo.
 - Font: [Poppins](https://fonts.google.com/specimen/Poppins) (Google Fonts).
 - Smooth scrolling: [Lenis](https://github.com/darkroomengineering/lenis),
   loaded from jsDelivr. If it fails to load, the site still works with normal

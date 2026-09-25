@@ -11,7 +11,7 @@
   --ink-soft: #2c4448;          /* secondary text */
   --teal-deep: #1d3f43;         /* headings on panels */
   --teal: #2d5a5e;              /* labels and accents on panels */
-  --sky: #3e6e72;               /* fallback while the photo loads */
+  --sky: #46737a;               /* fallback while the photo loads (the trifold's sky cyan) */
   --cream: #f4e7cd;             /* text on the sky */
   --cream-dim: rgba(244, 231, 205, 0.78);
 
@@ -155,8 +155,58 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg") 50% 0% / cover no-repeat;
+  background: var(--sky) url("images/sky.jpg?v=5") 50% 0% / cover no-repeat;
+  background-image: image-set(url("images/sky.webp?v=5") type("image/webp"), url("images/sky.jpg?v=5") type("image/jpeg"));
+  transform-origin: 50% 30%;
   will-change: transform;
+}
+
+/* 3D layer: clouds in front of the page. script.js moves them faster than
+   the page scrolls, which is what makes them look closer. */
+.fore {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wisp {
+  position: absolute;
+  top: 0;
+  width: var(--size, 40vw);
+  max-width: none;
+  height: auto;
+  opacity: 0.88;
+  will-change: transform;
+}
+
+.wisp[data-side="left"] {
+  left: calc(var(--size, 40vw) * -0.38);
+}
+
+.wisp[data-side="right"] {
+  right: calc(var(--size, 40vw) * -0.38);
+}
+
+.wisp--flip {
+  scale: -1 1;
+}
+
+/* phones: smaller and fainter, so they only brush the edges of the boxes */
+@media (max-width: 700px) {
+  .wisp {
+    --size: 62vw !important;
+    opacity: 0.75;
+  }
+
+  .wisp[data-side="left"] {
+    left: -40vw;
+  }
+
+  .wisp[data-side="right"] {
+    right: -40vw;
+  }
 }
 
 /* ============================================================
@@ -1632,6 +1682,14 @@ textarea.field__input {
   color: var(--cream);
 }
 
+.footer__credit {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--cream-dim);
+}
+
 /* ============================================================
    SCROLL ANIMATIONS
    Only apply once script.js is running (html.js). script.js adds
@@ -1846,6 +1904,10 @@ textarea.field__input {
 
   .scroll-cue__line::after {
     animation: none;
+  }
+
+  .fore {
+    display: none;
   }
 
   .js .member__scene,
