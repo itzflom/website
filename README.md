@@ -18,8 +18,7 @@ or back up: once a box has left the screen it resets, so it draws in again.
 | `index.html` | All the content. Every section of the page lives here. |
 | `styles.css` | Colours, fonts, layout, animations. Colours and sizes are at the top (`:root`). |
 | `script.js` | Makes it move: builds the nav, draws the frames, reveals text, scroll effects. You shouldn't need to edit it. |
-| `images/sky.jpg` | The background. |
-| `images/grain.png` | The film-grain texture laid over the sky. |
+| `images/sky.jpg` | The background (3200 px wide). |
 | `images/team/` | Teammate photos (see **Team panels** below). |
 
 ## Editing text
@@ -80,16 +79,21 @@ in `index.html`:
   Tall photos work best. With no photo, the panel shows a big initial.
 - **Role:** write it in `member__role`, e.g. `Host`. Empty roles are hidden.
 - **Colours:** `--c1` main, `--c2` light, `--c3` dark.
-- **Effect:** `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, or `sparks`.
-- **Blank panel:** `class="member member--empty"` (used for Ameer for now).
+- **Effect:** `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, `sparks`,
+  or `echoes` (sound-wave rings, Ameer's).
+- **Blank panel:** `class="member member--empty"` gives a plain placeholder panel.
 
 On a computer, the panel under the mouse widens. On phones and tablets, all six show at once in a grid.
 
 ## Contact form
 
-The "Send a message" form in the Contact section is sent by
-[Web3Forms](https://web3forms.com) to the inbox your access key was created
-with. The key is the `access_key` field in the form in `index.html`. It is
+The **Send a message** button in the Contact section (and **Share your
+story** at the top of the page) opens a pop-up with the message form. Any link
+to `#message` opens it. It closes with its Close button, the Esc key, or a
+click outside it.
+
+The form is sent by [Web3Forms](https://web3forms.com) to the inbox your
+access key was created with. The key is the `access_key` field in the form in `index.html`. It is
 meant to be public (Web3Forms is designed to be used from web pages, and the
 key can only send messages to your inbox), so it's fine that it's in this
 repo. If it ever gets abused for spam, make a new key in your Web3Forms
@@ -100,7 +104,6 @@ change the `subject` field to change that.
 
 ## Before you share it
 
-- **Instagram:** in the Contact section, replace the Instagram link with yours.
 - **Test the form:** send yourself one message from the live site to check it
   arrives.
 - **Stories:** when an episode or film is out, update its card and link it.
@@ -122,8 +125,9 @@ branch → Branch: `main`, folder: `/ (root)` → Save.** The site goes live at
 ## Credits & notes
 
 - Background photo: [Linus Belanger on Unsplash](https://unsplash.com/photos/fluffy-white-clouds-contrast-against-a-dark-blue-sky-3M_qkybLtq4)
-  (Unsplash License, free to use). Sky extended upward and colour-graded to
-  match the Cerita Nyata trifold.
+  (Unsplash License, free to use). Built from a 3840 px copy: sky extended
+  upward, sensor noise smoothed in the plain sky, colour-graded to match the
+  Cerita Nyata trifold.
 - Font: [Poppins](https://fonts.google.com/specimen/Poppins) (Google Fonts).
 - Smooth scrolling: [Lenis](https://github.com/darkroomengineering/lenis),
   loaded from jsDelivr. If it fails to load, the site still works with normal

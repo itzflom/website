@@ -10,6 +10,8 @@
  *  4. Reveals things (adds .is-in) as they scroll into view.
  *  5. Scroll-linked motion: sky pan, connector lines, CAS journey.
  *  6. Smooth scrolling (Lenis, if it loaded) and anchor links.
+ *  7. The "Send a message" pop-up.
+ *  8. Sending the contact form through Web3Forms.
  * ============================================================
  */
 (function () {
@@ -205,7 +207,8 @@
     bubbles: [6, 16],
     petals: [8, 14],
     leaves: [9, 15],
-    sparks: [6, 12]
+    sparks: [6, 12],
+    echoes: [30, 90]
   };
 
   toArray(document.querySelectorAll(".member")).forEach(function (member, index) {
@@ -289,7 +292,8 @@
     }
     scene.appendChild(svg);
 
-    /* Particles: embers and bubbles rise, petals and leaves fall, sparks twinkle */
+    /* Particles: embers and bubbles rise, petals and leaves fall, sparks twinkle,
+       echoes pulse out like sound waves */
     var kind = member.getAttribute("data-fx") || "embers";
     var size = PARTICLE_SIZE[kind] || PARTICLE_SIZE.embers;
     var fx = make("div", "member__fx");
@@ -297,11 +301,23 @@
     for (var k = 0; k < 12; k++) {
       var p = document.createElement("span");
       var duration = 5 + rand() * 6;
-      p.style.setProperty("--x", (rand() * 96).toFixed(1) + "%");
-      p.style.setProperty("--y", (8 + rand() * 80).toFixed(1) + "%");
-      p.style.setProperty("--s", (size[0] + rand() * (size[1] - size[0])).toFixed(1) + "px");
+      var x = (rand() * 96).toFixed(1) + "%";
+      var y = (8 + rand() * 80).toFixed(1) + "%";
+      var diameter = size[0] + rand() * (size[1] - size[0]);
+      var delay = -rand() * duration;
+      if (kind === "echoes" && k < 7) {
+        /* seven evenly spaced waves spreading from behind the initial */
+        duration = 5.6;
+        x = "30%";
+        y = "44%";
+        diameter = 300;
+        delay = -k * (duration / 7);
+      }
+      p.style.setProperty("--x", x);
+      p.style.setProperty("--y", y);
+      p.style.setProperty("--s", diameter.toFixed(1) + "px");
       p.style.setProperty("--dur", duration.toFixed(2) + "s");
-      p.style.setProperty("--delay", (-rand() * duration).toFixed(2) + "s");
+      p.style.setProperty("--delay", delay.toFixed(2) + "s");
       p.style.setProperty("--dx", ((rand() - 0.5) * 60).toFixed(0) + "px");
       p.style.setProperty("--r", (rand() * 360).toFixed(0) + "deg");
       fx.appendChild(p);
@@ -589,6 +605,11 @@
     event.preventDefault();
     if (root.classList.contains("menu-open")) setMenu(false);
 
+    if (target.tagName === "DIALOG") {
+      openDialog(target);
+      return;
+    }
+
     /* Sections have scroll-margin-top in the CSS so they land below the nav.
        Lenis reads it itself; a plain scrollTo() needs it added by hand. */
     if (lenis) {
@@ -609,7 +630,44 @@
   });
 
   /* ----------------------------------------------------------
-     7. CONTACT FORM (Web3Forms)
+     7. "SEND A MESSAGE" POP-UP
+     Any link to #message (or another <dialog>) opens it.
+     Closes with its Close button, Esc, or a click outside it.
+     ---------------------------------------------------------- */
+  function openDialog(dialog) {
+    if (dialog.open) return;
+    if (typeof dialog.showModal !== "function") {
+      dialog.setAttribute("open", "");
+      return;
+    }
+    var status = dialog.querySelector(".contact-form__status");
+    if (status && status.getAttribute("data-state") === "success") {
+      status.textContent = "";
+      status.removeAttribute("data-state");
+    }
+    dialog.showModal();
+    root.classList.add("message-open");
+    if (lenis) lenis.stop();
+  }
+
+  toArray(document.querySelectorAll("dialog")).forEach(function (dialog) {
+    dialog.addEventListener("close", function () {
+      root.classList.remove("message-open");
+      if (lenis) lenis.start();
+    });
+    /* a click on the dimmed area around the panel lands on the <dialog> itself */
+    dialog.addEventListener("click", function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+    toArray(dialog.querySelectorAll("[data-close-message]")).forEach(function (button) {
+      button.addEventListener("click", function () {
+        dialog.close();
+      });
+    });
+  });
+
+  /* ----------------------------------------------------------
+     8. CONTACT FORM (Web3Forms)
      Sends in the background and shows the result under the form.
      Without JavaScript, the form still posts straight to Web3Forms.
      ---------------------------------------------------------- */

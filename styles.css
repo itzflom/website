@@ -159,17 +159,6 @@ html.lenis body {
   will-change: transform;
 }
 
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: url("images/grain.png") repeat;
-  background-size: 128px;
-  mix-blend-mode: overlay;
-  opacity: 0.2;
-  pointer-events: none;
-}
-
 /* ============================================================
    SHARED: labels, headings, text
    ============================================================ */
@@ -1043,11 +1032,117 @@ main {
   }
 }
 
+/* ---- "Send a message" pop-up ---- */
+.message {
+  width: min(620px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  text-align: left;
+  overscroll-behavior: contain;
+}
+
+.message::backdrop {
+  background: rgba(10, 26, 29, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.message[open] {
+  animation: message-in 0.7s var(--ease-out);
+}
+
+.message[open]::backdrop {
+  animation: message-fade 0.5s ease;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.98);
+  }
+}
+
+@keyframes message-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.message__panel {
+  --panel: rgba(246, 238, 222, 0.97);
+  --pad: clamp(24px, 5vw, 48px);
+  --cut: 16px;
+}
+
+/* the panel appears straight away; its outline still draws in */
+.js .message .frame::before {
+  transition-duration: 0.4s;
+  transition-delay: 0s;
+}
+
+.message__close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+  padding: 10px 6px;
+  background: none;
+  border: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.message__close:hover {
+  color: var(--teal-deep);
+}
+
+.message__title {
+  margin: 10px 0 12px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--teal-deep);
+}
+
+.message .intro {
+  margin-inline: 0;
+}
+
+.message__actions {
+  display: flex;
+  margin-top: 6px;
+}
+
+html.message-open {
+  overflow: hidden;
+}
+
+/* Without JavaScript the pop-up can't open, so the form shows under the buttons instead */
+html:not(.js) .message:not([open]) {
+  display: block;
+  position: static;
+  width: 100%;
+  max-height: none;
+  margin-top: 36px;
+}
+
+html:not(.js) .message__close {
+  display: none;
+}
+
 /* ---- Contact form (sent by Web3Forms) ---- */
 .contact-form {
-  max-width: 640px;
-  margin: clamp(28px, 4vw, 44px) auto 0;
-  text-align: left;
+  margin-top: clamp(20px, 3vw, 28px);
 }
 
 .contact-form__row {
@@ -1104,10 +1199,6 @@ textarea.field__input {
   outline: none;
   border-bottom-color: var(--teal-deep);
   box-shadow: 0 1px 0 var(--teal-deep);
-}
-
-.contact-form .actions {
-  margin-top: 10px;
 }
 
 .contact-form__status {
@@ -1382,6 +1473,24 @@ textarea.field__input {
   background: linear-gradient(135deg, var(--c2), var(--c1));
 }
 
+/* Echoes: sound-wave rings pulsing out from the initial, plus a few ripples */
+[data-kind="echoes"] span {
+  top: var(--y);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  animation: none;
+}
+
+[data-kind="echoes"] span::before {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px solid var(--c2);
+  box-shadow: 0 0 14px var(--c2), inset 0 0 10px var(--c2);
+  animation: fx-echo var(--dur) cubic-bezier(0.2, 0.6, 0.35, 1) var(--delay) infinite;
+  animation-play-state: paused;
+}
+
 [data-kind="sparks"] span {
   top: var(--y);
   height: var(--s);
@@ -1412,6 +1521,12 @@ textarea.field__input {
 @keyframes fx-sway {
   from { transform: translateX(0) rotate(var(--r)); }
   to { transform: translateX(var(--dx)) rotate(calc(var(--r) + 160deg)); }
+}
+
+@keyframes fx-echo {
+  0% { transform: scale(0.06); opacity: 0; }
+  12% { opacity: 0.95; }
+  100% { transform: scale(1); opacity: 0; }
 }
 
 @keyframes fx-twinkle {
