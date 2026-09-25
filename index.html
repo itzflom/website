@@ -28,9 +28,8 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Background: the sky photo, a film-grain layer on top of it -->
+  <!-- Background: the sky photo -->
   <div class="sky" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
 
   <!-- NAV: the links are built automatically from every <section data-nav="..."> below -->
   <header class="nav">
@@ -64,7 +63,7 @@
         <p class="hero__tagline" data-split="words">Real stories, told responsibly.</p>
         <div class="hero__actions" data-reveal>
           <a class="btn btn--light" href="#about" data-frame="10">Who we are</a>
-          <a class="btn btn--light" href="#contact" data-frame="10">Share your story</a>
+          <a class="btn btn--light" href="#message" data-frame="10">Share your story</a>
         </div>
       </div>
 
@@ -119,7 +118,7 @@
     <!--
       One <article class="member"> per person. For each one you can change:
         --c1 / --c2 / --c3  their panel's main, light, and dark colour
-        data-fx             the effect in their panel: embers, petals, bubbles, leaves, or sparks
+        data-fx             the effect in their panel: embers, petals, bubbles, leaves, sparks, or echoes
         data-photo          put a photo in images/team/ and write its path, e.g. "images/team/eshan.jpg"
                             (leave it empty to show a big initial instead)
         member__role        optional, e.g. "Host" or "Editor". Leave it empty to hide it.
@@ -155,8 +154,9 @@
             <h3 class="member__name">Tristan</h3>
             <p class="member__role"></p>
           </article>
-          <article class="member member--empty">
+          <article class="member" data-fx="echoes" data-photo="" style="--c1: #3f5a9c; --c2: #f1d98a; --c3: #121a38">
             <h3 class="member__name">Ameer</h3>
+            <p class="member__role"></p>
           </article>
         </div>
       </div>
@@ -349,39 +349,51 @@
         <h2 class="heading heading--xl" data-split="chars">Have a story worth telling?</h2>
         <p class="intro" data-split="words">We’re looking for real stories, and for people who want to help tell them. Reach out and we’ll talk about it, on your terms.</p>
 
+        <div class="actions" data-reveal>
+          <a class="btn" href="#message" data-frame="10">Send a message</a>
+          <a class="btn" href="https://www.instagram.com/cerit4nyata/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
+        </div>
+
         <!--
-          Messages are sent to the team's inbox by Web3Forms (web3forms.com).
+          The "Send a message" pop-up. Messages go to the team's inbox through Web3Forms (web3forms.com).
           The access_key is meant to be public: it can only send messages to that inbox.
         -->
-        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form data-reveal>
-          <input type="hidden" name="access_key" value="5a02e537-5cd7-4c4c-8c87-fffdc516f4a0" />
-          <input type="hidden" name="subject" value="New message from the Cerita Nyata website" />
-          <input type="hidden" name="from_name" value="Cerita Nyata website" />
-          <!-- spam trap: people never see this box, bots tick it -->
-          <input type="checkbox" name="botcheck" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <dialog class="message" id="message" aria-labelledby="message-title" data-lenis-prevent>
+          <div class="frame message__panel" data-frame>
+            <button class="message__close" type="button" data-close-message>Close <span aria-hidden="true">✕</span></button>
+            <p class="label">Send a message</p>
+            <h2 class="message__title" id="message-title">Tell us your story.</h2>
+            <p class="intro">Share a story, ask a question, or tell us you want to help.</p>
 
-          <div class="contact-form__row">
-            <label class="field">
-              <span class="field__label">Your name</span>
-              <input class="field__input" type="text" name="name" required autocomplete="name" />
-            </label>
-            <label class="field">
-              <span class="field__label">Your email</span>
-              <input class="field__input" type="email" name="email" required autocomplete="email" />
-            </label>
-          </div>
-          <label class="field">
-            <span class="field__label">Your story or message</span>
-            <textarea class="field__input" name="message" rows="5" required></textarea>
-          </label>
+            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form>
+              <input type="hidden" name="access_key" value="5a02e537-5cd7-4c4c-8c87-fffdc516f4a0" />
+              <input type="hidden" name="subject" value="New message from the Cerita Nyata website" />
+              <input type="hidden" name="from_name" value="Cerita Nyata website" />
+              <!-- spam trap: people never see this box, bots tick it -->
+              <input type="checkbox" name="botcheck" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-          <!-- TODO: put your real Instagram link here -->
-          <div class="actions">
-            <button class="btn" type="submit" data-frame="10"><span class="btn__label">Send a message</span></button>
-            <a class="btn" href="https://www.instagram.com/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
+              <div class="contact-form__row">
+                <label class="field">
+                  <span class="field__label">Your name</span>
+                  <input class="field__input" type="text" name="name" required autocomplete="name" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Your email</span>
+                  <input class="field__input" type="email" name="email" required autocomplete="email" />
+                </label>
+              </div>
+              <label class="field">
+                <span class="field__label">Your story or message</span>
+                <textarea class="field__input" name="message" rows="5" required></textarea>
+              </label>
+
+              <div class="message__actions">
+                <button class="btn" type="submit" data-frame="10"><span class="btn__label">Send message</span></button>
+              </div>
+              <p class="contact-form__status" role="status" aria-live="polite"></p>
+            </form>
           </div>
-          <p class="contact-form__status" role="status" aria-live="polite"></p>
-        </form>
+        </dialog>
       </div>
     </section>
 
@@ -410,6 +422,7 @@
     <div class="footer__row">
       <p>© <span data-year>2026</span> Cerita Nyata. A student-founded CAS project.</p>
       <p>Sky photo: Linus Belanger / Unsplash</p>
+      <a href="https://www.instagram.com/cerit4nyata/" target="_blank" rel="noopener">Instagram @cerit4nyata</a>
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
