@@ -1,141 +1,340 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- DEMO ONLY: remove this line once the client approves and the site goes live -->
-  <meta name="robots" content="noindex" />
+  <title>Cerita Nyata | Real stories, told responsibly</title>
+  <meta name="description" content="Cerita Nyata is a student-founded podcast and short film initiative telling real stories responsibly, guided by consent, respect, and authenticity." />
+  <meta name="theme-color" content="#2d5a5e" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%232d5a5e'/%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%23f4e7cd' stroke-width='5'/%3E%3C/svg%3E" />
 
-  <title>Bunga Tole Florist | Bunga Segar di Cikini, Jakarta</title>
-  <meta name="description" content="Bunga Tole Florist menyediakan buket segar, bunga pernikahan, dan papan bunga di Pasar Kembang, Cikini, Jakarta Pusat. Pesan kapan saja lewat WhatsApp." />
-  <meta name="theme-color" content="#faf8f5" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%237a2333'/%3E%3C/svg%3E" />
+  <!-- Hides elements that animate in, until script.js is ready. Falls back to showing everything if it never loads. -->
+  <script>
+    document.documentElement.className += " js";
+    setTimeout(function () { if (!window.__cnReady) document.documentElement.classList.remove("js"); }, 2500);
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="theme.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="preload" href="images/sky.jpg" as="image" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Smooth scrolling (optional: the site works without it) -->
+  <script async id="lenis-js" src="https://cdn.jsdelivr.net/npm/lenis@1.3.21/dist/lenis.min.js" integrity="sha384-gVlw6UbXEhqWLqohIEO63Xj7zY5Q/jtHXX2C3kYEl5+yDgY7LYwv7aPIhrVoZBky" crossorigin="anonymous"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Icon sprite, referenced via <use>. No icon library. -->
-  <svg style="display:none" aria-hidden="true">
-    <symbol id="icon-whatsapp" viewBox="0 0 24 24">
-      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.19-1.14l-.3-.18-3.12.82.83-3.04-.2-.32a8.13 8.13 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.26.86 5.82 2.42a8.16 8.16 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23Zm4.52-6.16c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18a7.2 7.2 0 0 1-1.33-1.65c-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.79-.19-.47-.39-.41-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2.01 0 1.19.86 2.34.98 2.5.12.16 1.7 2.6 4.14 3.63.57.25 1.02.4 1.37.51.58.18 1.1.16 1.51.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
-    </symbol>
-    <symbol id="icon-pin" viewBox="0 0 24 24">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
-    </symbol>
-  </svg>
+  <!-- Background: the sky photo, a film-grain layer on top of it -->
+  <div class="sky" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <main>
-    <!-- 1. HERO -->
-    <section class="hero" id="hero">
-      <img class="hero__image" id="hero-image" src="" alt="" loading="eager" fetchpriority="high" />
-      <div class="hero__scrim"></div>
-      <div class="hero__content container">
-        <p class="eyebrow hero__eyebrow" data-hook="hero-eyebrow"></p>
-        <h1 class="hero__heading" data-hook="hero-heading"></h1>
-        <p class="hero__subheading" data-hook="hero-subheading"></p>
-        <a class="btn btn--whatsapp" id="hero-cta" href="#" target="_blank" rel="noopener">
-          <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
-          <span data-hook="hero-cta-label"></span>
-        </a>
-        <p class="hero__rating" data-hook="hero-rating"></p>
+  <!-- NAV: the links are built automatically from every <section data-nav="..."> below -->
+  <header class="nav">
+    <a class="nav__brand" href="#top">Cerita Nyata</a>
+    <nav class="nav__links" aria-label="Sections">
+      <ul data-nav-list></ul>
+    </nav>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="nav__toggle-open">Menu</span>
+      <span class="nav__toggle-close">Close</span>
+    </button>
+    <span class="nav__rule" aria-hidden="true"></span>
+  </header>
+
+  <div class="menu" id="menu">
+    <nav aria-label="Sections">
+      <ol class="menu__list" data-menu-list></ol>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="top">
+      <div class="hero__frame" data-frame="28" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <p class="label hero__label" data-reveal>Student-founded podcast &amp; short film initiative</p>
+        <h1 class="hero__title" data-split="chars"><span class="hero__word">Cerita</span> <span class="hero__word">Nyata</span></h1>
+        <p class="hero__meaning" data-reveal><em>cerita nyata</em>: Indonesian for “a true story”</p>
+        <p class="hero__tagline" data-split="words">Real stories, told responsibly.</p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--light" href="#about" data-frame="10">Who we are</a>
+          <a class="btn btn--light" href="#contact" data-frame="10">Share your story</a>
+        </div>
       </div>
+
+      <a class="scroll-cue" href="#about" data-reveal>
+        <span class="scroll-cue__line" aria-hidden="true"></span>
+        <span>Scroll</span>
+      </a>
     </section>
 
-    <!-- 2. ABOUT -->
-    <section class="section" id="about">
-      <div class="container">
-        <div class="about__grid">
-          <img class="about__image fade-in" id="about-image" src="" alt="" loading="lazy" width="1000" height="1250" />
-          <div class="fade-in">
-            <h2 class="section-heading" data-hook="about-heading"></h2>
-            <p class="about__body" data-hook="about-body"></p>
-          </div>
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!--
+      ================================================================
+      SECTIONS
+      ================================================================
+      Every <section class="section" data-nav="..."> is automatically:
+        - added to the nav bar and the mobile menu (using its data-nav text)
+        - numbered 01, 02, 03... in the order it appears
+      To add a section: copy the "TEMPLATE" block at the bottom of <main>,
+      give it a unique id and data-nav label, and write your content.
+      Put a <div class="connector"...> between sections for the drawn line.
+      ================================================================
+    -->
+
+    <!-- ============================== 01 ABOUT ============================== -->
+    <section class="section" id="about" data-nav="About">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>About</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <div class="split">
+          <article class="split__col">
+            <h2 class="heading" data-split="chars">Who are we?</h2>
+            <p class="lead" data-split="words">Cerita Nyata is a student-founded podcast and short film initiative telling real stories responsibly. Guided by consent, respect, and authenticity, we amplify real voices without exploitation and use media to build understanding.</p>
+          </article>
+
+          <span class="rule rule--v split__rule" aria-hidden="true"></span>
+
+          <article class="split__col split__col--end">
+            <h2 class="heading" data-split="chars">What we’re building?</h2>
+            <p class="lead" data-split="words">We’re creating podcasts and short films based on real experiences. Through collaboration, we want to talk about real issues, start conversations, and share real struggles.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- 3. GALLERY / CATALOG -->
-    <section class="section section--alt" id="gallery">
-      <div class="container">
-        <h2 class="section-heading fade-in" data-hook="gallery-heading"></h2>
-        <div class="gallery__grid" id="gallery-grid"></div>
-      </div>
-    </section>
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- 4. HOURS & LOCATION -->
-    <section class="section" id="info">
-      <div class="container">
-        <div class="info__grid">
-          <div class="fade-in">
-            <h2 class="section-heading" data-hook="info-heading"></h2>
-            <dl class="info__details">
-              <dt data-hook="info-hours-label"></dt>
-              <dd data-hook="info-hours"></dd>
-              <dd data-hook="info-hours-note"></dd>
+    <!-- ============================== 02 VALUES ============================== -->
+    <section class="section" id="values" data-nav="Values">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>What guides us</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
 
-              <dt data-hook="info-address-label"></dt>
-              <dd><address data-hook="info-address"></address></dd>
+        <h2 class="heading" data-split="chars">Three promises we make to every storyteller.</h2>
 
-              <dt data-hook="info-whatsapp-label"></dt>
-              <dd><a id="info-phone-link" href="#" data-hook="info-phone-label"></a></dd>
-            </dl>
-            <div class="info__actions">
-              <a class="btn btn--whatsapp" id="info-cta" href="#" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
-                <span data-hook="info-cta-label"></span>
-              </a>
-              <a class="btn btn--outline" id="directions-cta" href="#" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>
-                <span data-hook="info-directions-label"></span>
-              </a>
-            </div>
-          </div>
-          <div class="map-frame fade-in">
-            <iframe id="map-iframe" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bunga Tole Florist location on Google Maps"></iframe>
-          </div>
+        <div class="columns">
+          <article class="columns__item">
+            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
+            <p class="columns__num" data-reveal>01</p>
+            <h3 class="subheading" data-split="chars">Consent</h3>
+            <p data-split="words">Every story is shared with permission. The storyteller decides what is told and how.</p>
+          </article>
+          <article class="columns__item">
+            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
+            <p class="columns__num" data-reveal>02</p>
+            <h3 class="subheading" data-split="chars">Respect</h3>
+            <p data-split="words">The people behind the stories come first, before views, likes, or drama.</p>
+          </article>
+          <article class="columns__item">
+            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
+            <p class="columns__num" data-reveal>03</p>
+            <h3 class="subheading" data-split="chars">Authenticity</h3>
+            <p data-split="words">We keep stories honest. No exaggeration, no staging, no sensationalism.</p>
+          </article>
         </div>
       </div>
     </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 03 CAS JOURNEY ============================== -->
+    <section class="section" id="journey" data-nav="CAS Journey">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>Our CAS journey</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars">From an idea to stories people hear.</h2>
+        <p class="intro" data-split="words">Cerita Nyata is our CAS project. It follows the five CAS stages, and the line below fills in as you scroll through them.</p>
+
+        <div class="journey" data-journey>
+          <span class="journey__track" aria-hidden="true"><span class="journey__fill"></span></span>
+          <ol class="journey__list">
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step">Stage 1</p>
+              <h3 class="journey__name">Investigation</h3>
+              <p>Finding the issues that matter to the people around us, and the people who want their stories heard.</p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step">Stage 2</p>
+              <h3 class="journey__name">Preparation</h3>
+              <p>Planning episodes and films, agreeing on how we ask for consent, and learning to record, film, and edit.</p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step">Stage 3</p>
+              <h3 class="journey__name">Action</h3>
+              <p>Recording podcast conversations and shooting short films with our storytellers.</p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step">Stage 4</p>
+              <h3 class="journey__name">Reflection</h3>
+              <p>Looking back after every episode: what worked, what didn’t, and whether we treated each storyteller fairly.</p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step">Stage 5</p>
+              <h3 class="journey__name">Demonstration</h3>
+              <p>Releasing the stories and sharing what we learned with our school and the wider community.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 04 LEARNING OUTCOMES ============================== -->
+    <section class="section" id="outcomes" data-nav="Outcomes">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>CAS learning outcomes</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars">What this project lets us show.</h2>
+
+        <ul class="outcomes">
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO1</p>
+            <p class="outcome__name" data-reveal>Identify own strengths and develop areas for growth</p>
+            <p class="outcome__how" data-reveal>Each of us takes on roles, from hosting to filming to editing, that use our strengths and stretch our weak spots.</p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO2</p>
+            <p class="outcome__name" data-reveal>Demonstrate that challenges have been undertaken, developing new skills in the process</p>
+            <p class="outcome__how" data-reveal>Learning new skills: interviewing, recording audio, filming, and editing.</p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO3</p>
+            <p class="outcome__name" data-reveal>Demonstrate how to initiate and plan a CAS experience</p>
+            <p class="outcome__how" data-reveal>Cerita Nyata is student-founded. We started it, we plan it, and we run it.</p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO4</p>
+            <p class="outcome__name" data-reveal>Show commitment to and perseverance in CAS experiences</p>
+            <p class="outcome__how" data-reveal>Committing to a series of episodes and films over time, not a one-off event.</p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO5</p>
+            <p class="outcome__name" data-reveal>Demonstrate the skills and recognize the benefits of working collaboratively</p>
+            <p class="outcome__how" data-reveal>Everything we make is a collaboration, within our team and with the people whose stories we tell.</p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO6</p>
+            <p class="outcome__name" data-reveal>Demonstrate engagement with issues of global significance</p>
+            <p class="outcome__how" data-reveal>Our stories deal with real issues and real struggles, and aim to start conversations about them.</p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO7</p>
+            <p class="outcome__name" data-reveal>Recognize and consider the ethics of choices and actions</p>
+            <p class="outcome__how" data-reveal>Consent comes first. We amplify real voices without exploiting them.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 05 STORIES ============================== -->
+    <section class="section" id="stories" data-nav="Stories">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>Our stories</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars">Podcasts and short films.</h2>
+        <p class="intro" data-split="words">Our first stories are on their way. When one is out, it will appear here.</p>
+
+        <!-- Add a card per episode or film. To link one, change the <article> to <a href="..."> -->
+        <div class="cards">
+          <article class="card" data-frame="14">
+            <p class="card__kind">Podcast · Episode 01</p>
+            <h3 class="card__title">Coming soon</h3>
+            <p>Real conversations with real people, in their own words.</p>
+          </article>
+          <article class="card" data-frame="14">
+            <p class="card__kind">Short film · 01</p>
+            <h3 class="card__title">Coming soon</h3>
+            <p>Short films based on real experiences.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 06 CONTACT ============================== -->
+    <section class="section" id="contact" data-nav="Contact">
+      <div class="frame frame--center" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>Share your story</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading heading--xl" data-split="chars">Have a story worth telling?</h2>
+        <p class="intro" data-split="words">We’re looking for real stories, and for people who want to help tell them. Reach out and we’ll talk about it, on your terms.</p>
+
+        <!-- TODO: put your real email address and Instagram link here -->
+        <div class="actions" data-reveal>
+          <a class="btn" href="mailto:ceritanyata@example.com" data-frame="10">Email us</a>
+          <a class="btn" href="https://www.instagram.com/" target="_blank" rel="noopener" data-frame="10">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      ============================== TEMPLATE: copy this to add a section ==============================
+      1. Paste it above (after a connector), 2. change id="..." and data-nav="...", 3. write your text.
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <section class="section" id="team" data-nav="Team">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span>Meet the team</p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+        <h2 class="heading" data-split="chars">Your section heading.</h2>
+        <p class="intro" data-split="words">A paragraph of text. Add as many paragraphs as you like.</p>
+      </div>
+    </section>
+    -->
+
   </main>
 
-  <!-- 5. STICKY FLOATING WHATSAPP BUTTON -->
-  <a class="sticky-whatsapp" id="sticky-whatsapp" href="#" target="_blank" rel="noopener" aria-label="Order via WhatsApp">
-    <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
-  </a>
-
-  <!-- 6. FOOTER -->
-  <footer class="footer" id="footer">
-    <div class="container">
-      <p class="footer__brand" data-hook="footer-brand"></p>
-      <p class="footer__tagline" data-hook="footer-tagline"></p>
-
-      <div class="footer__grid">
-        <div>
-          <p class="footer__heading" data-hook="footer-contact-label"></p>
-          <p><a id="footer-phone-link" href="#" data-hook="footer-phone-label"></a></p>
-        </div>
-        <div>
-          <p class="footer__heading" data-hook="footer-address-label"></p>
-          <p data-hook="footer-address"></p>
-        </div>
-        <div>
-          <p class="footer__heading" data-hook="footer-hours-label"></p>
-          <p data-hook="footer-hours"></p>
-        </div>
-      </div>
-
-      <p class="footer__bottom" data-hook="footer-bottom"></p>
+  <footer class="footer">
+    <p class="footer__mark" data-split="chars">Cerita Nyata</p>
+    <div class="footer__row">
+      <p>© <span data-year>2026</span> Cerita Nyata. A student-founded CAS project.</p>
+      <p>Sky photo: Linus Belanger / Unsplash</p>
+      <a href="#top">Back to top ↑</a>
     </div>
   </footer>
-
-  <script src="content.js"></script>
-  <script src="app.js" defer></script>
 </body>
 </html>
