@@ -148,10 +148,10 @@ change the `subject` field to change that.
 
 GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
 visitors never get a new page with an old script or stylesheet, `index.html`
-loads them with a version number: `styles.css?v=9`, `script.js?v=9`, and the
-images as `images/sky.webp?v=9` etc. (in `index.html` and `styles.css`).
+loads them with a version number: `styles.css?v=10`, `script.js?v=10`, and the
+images as `images/sky.webp?v=10` etc. (in `index.html` and `styles.css`).
 **Whenever you change `styles.css`, `script.js` or the background, raise that
-number everywhere it appears** (e.g. to `?v=10`). Changes to `index.html` alone
+number everywhere it appears** (e.g. to `?v=11`). Changes to `index.html` alone
 don't need it. If you still see an old version, hard-refresh with
 Ctrl+Shift+R (Cmd+Shift+R on a Mac).
 

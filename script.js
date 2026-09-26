@@ -20,6 +20,8 @@
   window.__cnReady = true;
 
   var root = document.documentElement;
+  /* on a slow connection the fallback in index.html may have switched the animations off: switch them back on */
+  root.classList.add("js");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var SVG_NS = "http://www.w3.org/2000/svg";
   var lenis = null;
@@ -726,34 +728,51 @@
      Any link to #message (or another <dialog>) opens it.
      Closes with its Close button, Esc, or a click outside it.
      ---------------------------------------------------------- */
+  /* very old browsers have no <dialog> pop-ups: styles.css turns .is-fallback into one */
+  function hasModal(dialog) {
+    return typeof dialog.showModal === "function";
+  }
+
+  function onDialogClosed() {
+    root.classList.remove("message-open");
+    if (lenis) lenis.start();
+  }
+
   function openDialog(dialog) {
-    if (dialog.open) return;
-    if (typeof dialog.showModal !== "function") {
-      dialog.setAttribute("open", "");
-      return;
-    }
+    if (dialog.open || dialog.hasAttribute("open")) return;
     var status = dialog.querySelector(".contact-form__status");
     if (status && status.getAttribute("data-state") === "success") {
       status.textContent = "";
       status.removeAttribute("data-state");
     }
-    dialog.showModal();
+    if (hasModal(dialog)) {
+      dialog.showModal();
+    } else {
+      dialog.classList.add("is-fallback");
+      dialog.setAttribute("open", "");
+    }
     root.classList.add("message-open");
     if (lenis) lenis.stop();
   }
 
+  function closeDialog(dialog) {
+    if (hasModal(dialog)) {
+      dialog.close(); /* fires "close" → onDialogClosed */
+    } else {
+      dialog.removeAttribute("open");
+      onDialogClosed();
+    }
+  }
+
   toArray(document.querySelectorAll("dialog")).forEach(function (dialog) {
-    dialog.addEventListener("close", function () {
-      root.classList.remove("message-open");
-      if (lenis) lenis.start();
-    });
+    dialog.addEventListener("close", onDialogClosed);
     /* a click on the dimmed area around the panel lands on the <dialog> itself */
     dialog.addEventListener("click", function (event) {
-      if (event.target === dialog) dialog.close();
+      if (event.target === dialog) closeDialog(dialog);
     });
     toArray(dialog.querySelectorAll("[data-close-message]")).forEach(function (button) {
       button.addEventListener("click", function () {
-        dialog.close();
+        closeDialog(dialog);
       });
     });
   });
