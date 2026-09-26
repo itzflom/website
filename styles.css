@@ -155,8 +155,8 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg?v=9") 50% 0% / cover no-repeat;
-  background-image: image-set(url("images/sky.webp?v=9") type("image/webp"), url("images/sky.jpg?v=9") type("image/jpeg"));
+  background: var(--sky) url("images/sky.jpg?v=10") 50% 0% / cover no-repeat;
+  background-image: image-set(url("images/sky.webp?v=10") type("image/webp"), url("images/sky.jpg?v=10") type("image/jpeg"));
   transform-origin: 50% 30%;
   will-change: transform;
 }
@@ -1174,10 +1174,30 @@ main {
   overscroll-behavior: contain;
 }
 
+/* dims the page slightly behind the pop-up */
 .message::backdrop {
-  background: rgba(10, 26, 29, 0.55);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  background: rgba(10, 26, 29, 0.38);
+}
+
+/* it only ever shows as a pop-up, never on the page itself (also in old browsers) */
+.message:not([open]) {
+  display: none;
+}
+
+/* Pop-up without a real <dialog>: very old browsers (script.js adds .is-fallback),
+   and visitors without JavaScript (the #message link opens it) */
+.message.is-fallback[open],
+html:not(.js) .message:target {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 60;
+  display: block;
+  height: -webkit-fit-content;
+  height: fit-content;
+  box-shadow: 0 0 0 100vmax rgba(10, 26, 29, 0.38);
 }
 
 .message[open] {
@@ -1253,15 +1273,7 @@ html.message-open {
   overflow: hidden;
 }
 
-/* Without JavaScript the pop-up can't open, so the form shows under the buttons instead */
-html:not(.js) .message:not([open]) {
-  display: block;
-  position: static;
-  width: 100%;
-  max-height: none;
-  margin-top: 36px;
-}
-
+/* Without JavaScript the Close button can't work (the browser's Back button closes it) */
 html:not(.js) .message__close {
   display: none;
 }
