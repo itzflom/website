@@ -12,6 +12,7 @@
  *  6. Smooth scrolling (Lenis, if it loaded) and anchor links.
  *  7. The "Send a message" pop-up.
  *  8. Sending the contact form through Web3Forms.
+ *  9. The EN / ID language switch.
  * ============================================================
  */
 (function () {
@@ -34,6 +35,24 @@
     return Math.min(max, Math.max(min, value));
   }
 
+  /* Text that script.js writes itself, in both languages */
+  var MESSAGES = {
+    sending: { en: "Sending…", id: "Mengirim…" },
+    sendingMessage: { en: "Sending your message…", id: "Mengirim pesanmu…" },
+    sent: { en: "Thank you. Your message has been sent.", id: "Terima kasih. Pesanmu sudah terkirim." },
+    failed: { en: "Your message didn’t send", id: "Pesanmu gagal terkirim" },
+    tryAgain: { en: "Please try again.", id: "Silakan coba lagi." },
+    offline: { en: "Check your internet connection and try again.", id: "Cek koneksi internetmu, lalu coba lagi." }
+  };
+
+  function currentLang() {
+    return root.getAttribute("data-lang") === "id" ? "id" : "en";
+  }
+
+  function say(key) {
+    return MESSAGES[key][currentLang()];
+  }
+
   /* ----------------------------------------------------------
      1. NAV + MENU
      ---------------------------------------------------------- */
@@ -42,14 +61,29 @@
   var menuList = document.querySelector("[data-menu-list]");
   var navLinks = [];
 
+  /* the label in English (data-nav) and Indonesian (data-nav-id) */
+  function addNavLabel(el, section) {
+    var en = section.getAttribute("data-nav");
+    var id = section.getAttribute("data-nav-id");
+    if (!id) {
+      el.appendChild(document.createTextNode(en));
+      return;
+    }
+    [["en", en], ["id", id]].forEach(function (pair) {
+      var span = document.createElement("span");
+      span.lang = pair[0];
+      span.textContent = pair[1];
+      el.appendChild(span);
+    });
+  }
+
   sections.forEach(function (section, index) {
-    var label = section.getAttribute("data-nav");
     var href = "#" + section.id;
 
     var navItem = document.createElement("li");
     var navLink = document.createElement("a");
     navLink.href = href;
-    navLink.textContent = label;
+    addNavLabel(navLink, section);
     navItem.appendChild(navLink);
     navList.appendChild(navItem);
 
@@ -58,9 +92,10 @@
     var menuLink = document.createElement("a");
     menuLink.href = href;
     var num = document.createElement("span");
+    num.className = "menu__num";
     num.textContent = String(index + 1).padStart(2, "0");
     menuLink.appendChild(num);
-    menuLink.appendChild(document.createTextNode(label));
+    addNavLabel(menuLink, section);
     menuItem.appendChild(menuLink);
     menuList.appendChild(menuItem);
 
@@ -129,6 +164,17 @@
      data-split="words": each word slides up (paragraphs)
      ---------------------------------------------------------- */
   function splitText(el, mode) {
+    /* text written in both languages: split each version on its own */
+    var versions = toArray(el.children).filter(function (child) {
+      return child.hasAttribute("lang");
+    });
+    if (versions.length) {
+      versions.forEach(function (version) {
+        splitText(version, mode);
+      });
+      return;
+    }
+
     var textNodes = [];
     var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
     while (walker.nextNode()) textNodes.push(walker.currentNode);
@@ -786,7 +832,7 @@
     var status = form.querySelector(".contact-form__status");
     var button = form.querySelector('button[type="submit"]');
     var label = button ? button.querySelector(".btn__label") : null;
-    var labelText = label ? label.textContent : "";
+    var labelHTML = label ? label.innerHTML : "";
 
     function setStatus(text, state) {
       if (!status) return;
@@ -797,14 +843,17 @@
     function setSending(sending) {
       if (!button) return;
       button.disabled = sending;
-      if (label) label.textContent = sending ? "Sending…" : labelText;
+      if (label) {
+        if (sending) label.textContent = say("sending");
+        else label.innerHTML = labelHTML;
+      }
     }
 
     form.addEventListener("submit", function (event) {
       if (!window.fetch || !window.FormData) return;
       event.preventDefault();
       setSending(true);
-      setStatus("Sending your message…", "pending");
+      setStatus(say("sendingMessage"), "pending");
 
       fetch(form.action, {
         method: "POST",
@@ -821,23 +870,89 @@
         .then(function (result) {
           if (result.ok && result.data.success) {
             form.reset();
-            setStatus("Thank you. Your message has been sent.", "success");
+            setStatus(say("sent"), "success");
           } else {
             var reason = result.data.message || (result.data.body && result.data.body.message);
-            setStatus(
-              "Your message didn’t send" + (reason ? " (" + reason + ")" : "") + ". Please try again.",
-              "error"
-            );
+            setStatus(say("failed") + (reason ? " (" + reason + ")" : "") + ". " + say("tryAgain"), "error");
           }
         })
         .catch(function () {
-          setStatus("Your message didn’t send. Check your internet connection and try again.", "error");
+          setStatus(say("failed") + ". " + say("offline"), "error");
         })
         .then(function () {
           setSending(false);
         });
     });
   });
+
+  /* ----------------------------------------------------------
+     9. LANGUAGE (EN / ID)
+     Every text is written twice, <span lang="en"> and <span lang="id">;
+     styles.css shows the one matching <html data-lang>. The first
+     choice is made in index.html (last visit, else the phone's language).
+     ---------------------------------------------------------- */
+  var langButtons = toArray(document.querySelectorAll("[data-set-lang]"));
+  var langField = document.querySelector('input[name="language"]');
+  var titles = {
+    en: document.title,
+    id: document.querySelector("title").getAttribute("data-id") || document.title
+  };
+  /* attributes screen readers use: data-id-aria-label="..." holds the Indonesian */
+  var labelled = toArray(document.querySelectorAll("[data-id-aria-label]"));
+  labelled.forEach(function (el) {
+    el.setAttribute("data-en-aria-label", el.getAttribute("aria-label") || "");
+  });
+
+  /* play the on-screen text reveals again, in the new language */
+  function replayText() {
+    if (reduceMotion) return;
+    var vh = window.innerHeight;
+    var shown = toArray(document.querySelectorAll("[data-split].is-in")).filter(function (el) {
+      var rect = el.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < vh;
+    });
+    shown.forEach(function (el) {
+      el.classList.add("is-reset");
+      el.classList.remove("is-in");
+    });
+    void root.offsetHeight;
+    shown.forEach(function (el) {
+      el.classList.remove("is-reset");
+    });
+    void root.offsetHeight;
+    shown.forEach(function (el) {
+      el.classList.add("is-in");
+    });
+  }
+
+  function setLang(lang, replay) {
+    root.setAttribute("data-lang", lang);
+    root.lang = lang;
+    document.title = titles[lang];
+    labelled.forEach(function (el) {
+      el.setAttribute("aria-label", el.getAttribute("data-" + lang + "-aria-label"));
+    });
+    langButtons.forEach(function (button) {
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-set-lang") === lang));
+    });
+    if (langField) langField.value = lang === "id" ? "Bahasa Indonesia" : "English";
+    if (replay) replayText();
+  }
+
+  langButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var lang = button.getAttribute("data-set-lang");
+      if (lang === currentLang()) return;
+      try {
+        localStorage.setItem("cn-lang", lang);
+      } catch (e) {
+        /* private mode: the choice just isn't remembered */
+      }
+      setLang(lang, true);
+    });
+  });
+
+  setLang(currentLang(), false);
 
   /* ----------------------------------------------------------
      Footer year

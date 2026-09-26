@@ -27,15 +27,37 @@ or back up: once a box has left the screen it resets, so it draws in again.
 Open `index.html` and change the words between the tags. Each section is
 marked with a comment like `<!-- 02 VALUES -->`.
 
+## English / Indonesian
+
+The **EN / ID** buttons at the top right switch the whole site between
+English and Indonesian. Every piece of text is written twice, side by side:
+
+```html
+<h2 class="heading" data-split="chars"><span lang="en">Got a story?</span><span lang="id">Punya cerita?</span></h2>
+```
+
+Change both when you edit something. If a text only has one version (no
+`<span lang>`), it shows in both languages. The nav labels come from each
+section's `data-nav` (English) and `data-nav-id` (Indonesian).
+
+- **First visit:** the site shows Indonesian if the visitor's phone or browser
+  is set to Indonesian, otherwise English. After that it remembers their choice.
+- **Tab title** (Indonesian) is the `data-id` on `<title>`.
+- **Messages the form shows** (Sending…, Thank you…) are in `MESSAGES` near
+  the top of `script.js`.
+- Messages sent through the form include a `language` line, so you know which
+  language to reply in.
+- **Please have a native speaker check the Indonesian** before you share the site.
+
 ## Adding a section
 
 At the bottom of `<main>` in `index.html` there is a commented-out
 **TEMPLATE** block. Copy it (without the `<!--` and `-->`), paste it where
 you want the section, then:
 
-1. Change `id="team"` to a unique id (lowercase, no spaces).
-2. Change `data-nav="Team"` to the label you want in the nav bar.
-3. Write your heading and text.
+1. Change `id="gallery"` to a unique id (lowercase, no spaces).
+2. Change `data-nav="Gallery"` and `data-nav-id="Galeri"` to the nav bar label in English and Indonesian.
+3. Write your heading and text, in both languages.
 
 That's it. The section is added to the nav bar and the mobile menu
 automatically, and numbered automatically (01, 02, 03…). Put a
@@ -148,10 +170,10 @@ change the `subject` field to change that.
 
 GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
 visitors never get a new page with an old script or stylesheet, `index.html`
-loads them with a version number: `styles.css?v=10`, `script.js?v=10`, and the
-images as `images/sky.webp?v=10` etc. (in `index.html` and `styles.css`).
+loads them with a version number: `styles.css?v=11`, `script.js?v=11`, and the
+images as `images/sky.webp?v=11` etc. (in `index.html` and `styles.css`).
 **Whenever you change `styles.css`, `script.js` or the background, raise that
-number everywhere it appears** (e.g. to `?v=11`). Changes to `index.html` alone
+number everywhere it appears** (e.g. to `?v=12`). Changes to `index.html` alone
 don't need it. If you still see an old version, hard-refresh with
 Ctrl+Shift+R (Cmd+Shift+R on a Mac).
 

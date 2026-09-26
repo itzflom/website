@@ -4,10 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Cerita Nyata | Real stories, told responsibly</title>
+  <title data-id="Cerita Nyata | Kisah nyata, diceritakan secara bertanggung jawab">Cerita Nyata | Real stories, told responsibly</title>
   <meta name="description" content="Cerita Nyata is a student-founded podcast and short film initiative telling real stories responsibly, guided by consent, respect, and authenticity." />
   <meta name="theme-color" content="#2d5a5e" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%232d5a5e'/%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%23f4e7cd' stroke-width='5'/%3E%3C/svg%3E" />
+
+  <!-- Language: English or Indonesian (the visitor's last choice, else their phone/browser language) -->
+  <script>
+    (function () {
+      var lang;
+      try { lang = localStorage.getItem("cn-lang"); } catch (e) {}
+      if (lang !== "en" && lang !== "id") {
+        lang = /^(id|in)\b/i.test((navigator.languages && navigator.languages[0]) || navigator.language || "") ? "id" : "en";
+      }
+      document.documentElement.setAttribute("data-lang", lang);
+      document.documentElement.lang = lang;
+    })();
+  </script>
 
   <!-- Hides elements that animate in, until script.js is ready. Falls back to showing everything if it fails to load
        (or is very slow; if it turns up later it switches the animations back on). -->
@@ -20,16 +33,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-  <link rel="preload" href="images/sky.webp?v=10" as="image" type="image/webp" />
+  <link rel="preload" href="images/sky.webp?v=11" as="image" type="image/webp" />
   <!-- Bump ?v= whenever styles.css, script.js or the images change, so browsers fetch the new files -->
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
 
   <!-- Smooth scrolling (optional: the site works without it) -->
   <script async id="lenis-js" src="https://cdn.jsdelivr.net/npm/lenis@1.3.21/dist/lenis.min.js" integrity="sha384-gVlw6UbXEhqWLqohIEO63Xj7zY5Q/jtHXX2C3kYEl5+yDgY7LYwv7aPIhrVoZBky" crossorigin="anonymous"></script>
-  <script defer src="script.js?v=10" onerror="__cnFail()"></script>
+  <script defer src="script.js?v=11" onerror="__cnFail()"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main"><span lang="en">Skip to content</span><span lang="id">Langsung ke konten</span></a>
 
   <!-- Background: the sky photo (moves a little as you scroll and move the mouse) -->
   <div class="sky" aria-hidden="true"></div>
@@ -43,35 +56,40 @@
     Each cloud is its own cut-out (images/cloud-01 … cloud-14). Delete this whole <div> to turn the effect off.
   -->
   <div class="fore" aria-hidden="true">
-    <img class="wisp" src="images/cloud-02.webp?v=10" alt="" data-at="0.04" data-x="92" data-size="30" data-speed="1.6" />
-    <img class="wisp" src="images/cloud-08.webp?v=10" alt="" data-at="0.11" data-x="7" data-size="20" data-speed="1.3" />
-    <img class="wisp" src="images/cloud-04.webp?v=10" alt="" data-at="0.18" data-x="89" data-size="33" data-speed="1.7" />
-    <img class="wisp" src="images/cloud-06.webp?v=10" alt="" data-at="0.25" data-x="9" data-size="26" data-speed="1.5" />
-    <img class="wisp" src="images/cloud-10.webp?v=10" alt="" data-at="0.32" data-x="95" data-size="18" data-speed="1.25" />
-    <img class="wisp" src="images/cloud-01.webp?v=10" alt="" data-at="0.39" data-x="5" data-size="33" data-speed="1.75" />
-    <img class="wisp" src="images/cloud-13.webp?v=10" alt="" data-at="0.46" data-x="91" data-size="22" data-speed="1.4" />
-    <img class="wisp" src="images/cloud-03.webp?v=10" alt="" data-at="0.53" data-x="8" data-size="27" data-speed="1.55" />
-    <img class="wisp" src="images/cloud-14.webp?v=10" alt="" data-at="0.6" data-x="93" data-size="32" data-speed="1.7" />
-    <img class="wisp" src="images/cloud-09.webp?v=10" alt="" data-at="0.67" data-x="4" data-size="18" data-speed="1.25" />
-    <img class="wisp" src="images/cloud-05.webp?v=10" alt="" data-at="0.74" data-x="90" data-size="26" data-speed="1.5" />
-    <img class="wisp" src="images/cloud-07.webp?v=10" alt="" data-at="0.81" data-x="9" data-size="30" data-speed="1.65" />
-    <img class="wisp" src="images/cloud-11.webp?v=10" alt="" data-at="0.88" data-x="95" data-size="20" data-speed="1.35" />
-    <img class="wisp" src="images/cloud-12.webp?v=10" alt="" data-at="0.95" data-x="6" data-size="24" data-speed="1.45" />
+    <img class="wisp" src="images/cloud-02.webp?v=11" alt="" data-at="0.04" data-x="92" data-size="30" data-speed="1.6" />
+    <img class="wisp" src="images/cloud-08.webp?v=11" alt="" data-at="0.11" data-x="7" data-size="20" data-speed="1.3" />
+    <img class="wisp" src="images/cloud-04.webp?v=11" alt="" data-at="0.18" data-x="89" data-size="33" data-speed="1.7" />
+    <img class="wisp" src="images/cloud-06.webp?v=11" alt="" data-at="0.25" data-x="9" data-size="26" data-speed="1.5" />
+    <img class="wisp" src="images/cloud-10.webp?v=11" alt="" data-at="0.32" data-x="95" data-size="18" data-speed="1.25" />
+    <img class="wisp" src="images/cloud-01.webp?v=11" alt="" data-at="0.39" data-x="5" data-size="33" data-speed="1.75" />
+    <img class="wisp" src="images/cloud-13.webp?v=11" alt="" data-at="0.46" data-x="91" data-size="22" data-speed="1.4" />
+    <img class="wisp" src="images/cloud-03.webp?v=11" alt="" data-at="0.53" data-x="8" data-size="27" data-speed="1.55" />
+    <img class="wisp" src="images/cloud-14.webp?v=11" alt="" data-at="0.6" data-x="93" data-size="32" data-speed="1.7" />
+    <img class="wisp" src="images/cloud-09.webp?v=11" alt="" data-at="0.67" data-x="4" data-size="18" data-speed="1.25" />
+    <img class="wisp" src="images/cloud-05.webp?v=11" alt="" data-at="0.74" data-x="90" data-size="26" data-speed="1.5" />
+    <img class="wisp" src="images/cloud-07.webp?v=11" alt="" data-at="0.81" data-x="9" data-size="30" data-speed="1.65" />
+    <img class="wisp" src="images/cloud-11.webp?v=11" alt="" data-at="0.88" data-x="95" data-size="20" data-speed="1.35" />
+    <img class="wisp" src="images/cloud-12.webp?v=11" alt="" data-at="0.95" data-x="6" data-size="24" data-speed="1.45" />
   </div>
 
-  <!-- NAV: the links are built automatically from every <section data-nav="..."> below -->
+  <!-- NAV: the links are built automatically from every <section data-nav="..." data-nav-id="..."> below -->
   <header class="nav">
     <a class="nav__brand" href="#top">Cerita Nyata</a>
     <nav class="nav__links" aria-label="Sections">
       <ul data-nav-list></ul>
     </nav>
     <div class="nav__end">
-      <a class="nav__social" href="https://www.instagram.com/cerit4nyata/" target="_blank" rel="noopener" aria-label="Instagram @cerit4nyata (opens in a new tab)" title="Instagram @cerit4nyata">
+      <div class="lang" role="group" aria-label="Language / Bahasa">
+        <button class="lang__btn" type="button" data-set-lang="en" aria-pressed="true" aria-label="English">EN</button>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <button class="lang__btn" type="button" data-set-lang="id" aria-pressed="false" aria-label="Bahasa Indonesia">ID</button>
+      </div>
+      <a class="nav__social" href="https://www.instagram.com/cerit4nyata/" target="_blank" rel="noopener" aria-label="Instagram @cerit4nyata (opens in a new tab)" data-id-aria-label="Instagram @cerit4nyata (buka di tab baru)" title="Instagram @cerit4nyata">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5.2" /><circle cx="12" cy="12" r="4.1" /><circle class="nav__social-dot" cx="17.3" cy="6.7" r="1.05" /></svg>
       </a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu">
         <span class="nav__toggle-open">Menu</span>
-        <span class="nav__toggle-close">Close</span>
+        <span class="nav__toggle-close"><span lang="en">Close</span><span lang="id">Tutup</span></span>
       </button>
     </div>
     <span class="nav__rule" aria-hidden="true"></span>
@@ -90,19 +108,19 @@
       <div class="hero__frame" data-frame="28" aria-hidden="true"></div>
 
       <div class="hero__inner">
-        <p class="label hero__label" data-reveal>Student-founded podcast &amp; short film initiative</p>
+        <p class="label hero__label" data-reveal><span lang="en">Student-founded podcast &amp; short film initiative</span><span lang="id">Podcast &amp; film pendek buatan pelajar</span></p>
         <h1 class="hero__title" data-split="chars"><span class="hero__word">Cerita</span> <span class="hero__word">Nyata</span></h1>
-        <p class="hero__meaning" data-reveal><em>cerita nyata</em>: Indonesian for “a true story”</p>
-        <p class="hero__tagline" data-split="words">Real stories, told responsibly.</p>
+        <p class="hero__meaning" data-reveal><span lang="en"><em>cerita nyata</em>: Indonesian for “a true story”</span><span lang="id"><em>cerita nyata</em>: kisah yang benar-benar terjadi</span></p>
+        <p class="hero__tagline" data-split="words"><span lang="en">Real stories, told responsibly.</span><span lang="id">Kisah nyata, diceritakan secara bertanggung jawab.</span></p>
         <div class="hero__actions" data-reveal>
-          <a class="btn btn--light" href="#about" data-frame="10">Who we are</a>
-          <a class="btn btn--light" href="#message" data-frame="10">Share your story</a>
+          <a class="btn btn--light" href="#about" data-frame="10"><span lang="en">Who we are</span><span lang="id">Tentang kami</span></a>
+          <a class="btn btn--light" href="#message" data-frame="10"><span lang="en">Share your story</span><span lang="id">Bagikan ceritamu</span></a>
         </div>
       </div>
 
       <a class="scroll-cue" href="#about" data-reveal>
         <span class="scroll-cue__line" aria-hidden="true"></span>
-        <span>Scroll</span>
+        <span lang="en">Scroll</span><span lang="id">Gulir</span>
       </a>
     </section>
 
@@ -112,34 +130,36 @@
       ================================================================
       SECTIONS
       ================================================================
-      Every <section class="section" data-nav="..."> is automatically:
-        - added to the nav bar and the mobile menu (using its data-nav text)
+      Every <section class="section" data-nav="..." data-nav-id="..."> is automatically:
+        - added to the nav bar and the mobile menu (data-nav in English, data-nav-id in Indonesian)
         - numbered 01, 02, 03... in the order it appears
       To add a section: copy the "TEMPLATE" block at the bottom of <main>,
-      give it a unique id and data-nav label, and write your content.
+      give it a unique id and data-nav / data-nav-id labels, and write your content.
+      Every text is written twice: <span lang="en">English</span><span lang="id">Indonesian</span>.
+      The EN / ID buttons in the nav switch between them.
       Put a <div class="connector"...> between sections for the drawn line.
       ================================================================
     -->
 
     <!-- ============================== 01 ABOUT ============================== -->
-    <section class="section" id="about" data-nav="About">
+    <section class="section" id="about" data-nav="About" data-nav-id="Tentang">
       <div class="frame" data-frame>
         <div class="frame__head">
-          <p class="label"><span class="label__num"></span>About</p>
+          <p class="label"><span class="label__num"></span><span lang="en">About</span><span lang="id">Tentang</span></p>
           <span class="rule rule--h" aria-hidden="true"></span>
         </div>
 
         <div class="split">
           <article class="split__col">
-            <h2 class="heading" data-split="chars">Who are we?</h2>
-            <p class="lead" data-split="words">Cerita Nyata is a student-founded podcast and short film initiative telling real stories responsibly. Guided by consent, respect, and authenticity, we amplify real voices without exploitation and use media to build understanding.</p>
+            <h2 class="heading" data-split="chars"><span lang="en">Who are we?</span><span lang="id">Siapa kami?</span></h2>
+            <p class="lead" data-split="words"><span lang="en">Cerita Nyata is a student-founded podcast and short film initiative telling real stories responsibly. Guided by consent, respect, and authenticity, we amplify real voices without exploitation and use media to build understanding.</span><span lang="id">Cerita Nyata adalah inisiatif podcast dan film pendek yang didirikan oleh pelajar untuk menceritakan kisah nyata secara bertanggung jawab. Berpegang pada persetujuan, rasa hormat, dan keaslian, kami mengangkat suara-suara nyata tanpa mengeksploitasi, dan memakai media untuk membangun saling pengertian.</span></p>
           </article>
 
           <span class="rule rule--v split__rule" aria-hidden="true"></span>
 
           <article class="split__col split__col--end">
-            <h2 class="heading" data-split="chars">What we’re building?</h2>
-            <p class="lead" data-split="words">We’re creating podcasts and short films based on real experiences. Through collaboration, we want to talk about real issues, start conversations, and share real struggles.</p>
+            <h2 class="heading" data-split="chars"><span lang="en">What are we building?</span><span lang="id">Apa yang sedang kami buat?</span></h2>
+            <p class="lead" data-split="words"><span lang="en">We’re creating podcasts and short films based on real experiences. Through collaboration, we want to talk about real issues, start conversations, and share real struggles.</span><span lang="id">Kami membuat podcast dan film pendek berdasarkan pengalaman nyata. Lewat kolaborasi, kami ingin membahas isu-isu nyata, membuka percakapan, dan membagikan perjuangan yang sesungguhnya.</span></p>
           </article>
         </div>
       </div>
@@ -147,7 +167,71 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 02 TEAM ============================== -->
+    <!-- ============================== 02 VALUES ============================== -->
+    <section class="section" id="values" data-nav="Values" data-nav-id="Nilai">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span><span lang="en">What guides us</span><span lang="id">Prinsip kami</span></p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars"><span lang="en">Three promises we make to every storyteller.</span><span lang="id">Tiga janji kami untuk setiap narasumber.</span></h2>
+
+        <div class="columns">
+          <article class="columns__item">
+            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
+            <p class="columns__num" data-reveal>01</p>
+            <h3 class="subheading" data-split="chars"><span lang="en">Consent</span><span lang="id">Persetujuan</span></h3>
+            <p data-split="words"><span lang="en">Every story is shared with permission. The storyteller decides what is told and how.</span><span lang="id">Setiap cerita dibagikan dengan izin. Narasumber yang menentukan apa yang diceritakan dan bagaimana caranya.</span></p>
+          </article>
+          <article class="columns__item">
+            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
+            <p class="columns__num" data-reveal>02</p>
+            <h3 class="subheading" data-split="chars"><span lang="en">Respect</span><span lang="id">Rasa hormat</span></h3>
+            <p data-split="words"><span lang="en">The people behind the stories come first, before views, likes, or drama.</span><span lang="id">Orang-orang di balik cerita selalu yang utama, lebih penting dari views, likes, atau drama.</span></p>
+          </article>
+          <article class="columns__item">
+            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
+            <p class="columns__num" data-reveal>03</p>
+            <h3 class="subheading" data-split="chars"><span lang="en">Authenticity</span><span lang="id">Keaslian</span></h3>
+            <p data-split="words"><span lang="en">We keep stories honest. No exaggeration, no staging, no sensationalism.</span><span lang="id">Kami menjaga cerita tetap jujur. Tanpa dilebih-lebihkan, tanpa rekayasa, tanpa sensasi.</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 03 STORIES ============================== -->
+    <section class="section" id="stories" data-nav="Stories" data-nav-id="Cerita">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span><span lang="en">Our stories</span><span lang="id">Cerita kami</span></p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars"><span lang="en">Podcasts and short films.</span><span lang="id">Podcast dan film pendek.</span></h2>
+        <p class="intro" data-split="words"><span lang="en">Our first stories are on their way. When one is out, it will appear here.</span><span lang="id">Cerita-cerita pertama kami sedang dalam proses. Begitu ada yang rilis, akan muncul di sini.</span></p>
+
+        <!-- Add a card per episode or film. To link one, change the <article> to <a href="..."> -->
+        <div class="cards">
+          <article class="card" data-frame="14">
+            <p class="card__kind"><span lang="en">Podcast · Episode 01</span><span lang="id">Podcast · Episode 01</span></p>
+            <h3 class="card__title"><span lang="en">Coming soon</span><span lang="id">Segera hadir</span></h3>
+            <p><span lang="en">Real conversations with real people, in their own words.</span><span lang="id">Obrolan nyata dengan orang-orang nyata, dengan kata-kata mereka sendiri.</span></p>
+          </article>
+          <article class="card" data-frame="14">
+            <p class="card__kind"><span lang="en">Short film · 01</span><span lang="id">Film pendek · 01</span></p>
+            <h3 class="card__title"><span lang="en">Coming soon</span><span lang="id">Segera hadir</span></h3>
+            <p><span lang="en">Short films based on real experiences.</span><span lang="id">Film pendek berdasarkan pengalaman nyata.</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 04 TEAM ============================== -->
     <!--
       One <article class="member"> per person. For each one you can change:
         --c1 / --c2 / --c3  their panel's main, light, and dark colour
@@ -157,14 +241,14 @@
         member__role        optional, e.g. "Host" or "Editor". Leave it empty to hide it.
       class="member member--empty" makes a blank placeholder panel.
     -->
-    <section class="section" id="team" data-nav="Team">
+    <section class="section" id="team" data-nav="Team" data-nav-id="Tim">
       <div class="frame" data-frame>
         <div class="frame__head">
-          <p class="label"><span class="label__num"></span>Meet the team</p>
+          <p class="label"><span class="label__num"></span><span lang="en">Meet the team</span><span lang="id">Tim kami</span></p>
           <span class="rule rule--h" aria-hidden="true"></span>
         </div>
 
-        <h2 class="heading" data-split="chars">The people behind the stories.</h2>
+        <h2 class="heading" data-split="chars"><span lang="en">The people behind the stories.</span><span lang="id">Orang-orang di balik cerita.</span></h2>
 
         <div class="team" data-team>
           <article class="member" data-fx="embers" data-photo="" style="--c1: #d9772b; --c2: #f8c870; --c3: #5c210e">
@@ -197,193 +281,19 @@
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <!-- ============================== 03 VALUES ============================== -->
-    <section class="section" id="values" data-nav="Values">
-      <div class="frame" data-frame>
-        <div class="frame__head">
-          <p class="label"><span class="label__num"></span>What guides us</p>
-          <span class="rule rule--h" aria-hidden="true"></span>
-        </div>
-
-        <h2 class="heading" data-split="chars">Three promises we make to every storyteller.</h2>
-
-        <div class="columns">
-          <article class="columns__item">
-            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
-            <p class="columns__num" data-reveal>01</p>
-            <h3 class="subheading" data-split="chars">Consent</h3>
-            <p data-split="words">Every story is shared with permission. The storyteller decides what is told and how.</p>
-          </article>
-          <article class="columns__item">
-            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
-            <p class="columns__num" data-reveal>02</p>
-            <h3 class="subheading" data-split="chars">Respect</h3>
-            <p data-split="words">The people behind the stories come first, before views, likes, or drama.</p>
-          </article>
-          <article class="columns__item">
-            <span class="rule rule--v columns__rule" aria-hidden="true"></span>
-            <p class="columns__num" data-reveal>03</p>
-            <h3 class="subheading" data-split="chars">Authenticity</h3>
-            <p data-split="words">We keep stories honest. No exaggeration, no staging, no sensationalism.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
-
-    <!-- ============================== 04 CAS JOURNEY ============================== -->
-    <section class="section" id="journey" data-nav="CAS Journey">
-      <div class="frame" data-frame>
-        <div class="frame__head">
-          <p class="label"><span class="label__num"></span>Our CAS journey</p>
-          <span class="rule rule--h" aria-hidden="true"></span>
-        </div>
-
-        <h2 class="heading" data-split="chars">From an idea to stories people hear.</h2>
-        <p class="intro" data-split="words">Cerita Nyata is our CAS project. It follows the five CAS stages, and the line below fills in as you scroll through them.</p>
-
-        <div class="journey" data-journey>
-          <span class="journey__track" aria-hidden="true"><span class="journey__fill"></span></span>
-          <ol class="journey__list">
-            <li class="journey__stage">
-              <span class="journey__node" aria-hidden="true"></span>
-              <p class="journey__step">Stage 1</p>
-              <h3 class="journey__name">Investigation</h3>
-              <p>Finding the issues that matter to the people around us, and the people who want their stories heard.</p>
-            </li>
-            <li class="journey__stage">
-              <span class="journey__node" aria-hidden="true"></span>
-              <p class="journey__step">Stage 2</p>
-              <h3 class="journey__name">Preparation</h3>
-              <p>Planning episodes and films, agreeing on how we ask for consent, and learning to record, film, and edit.</p>
-            </li>
-            <li class="journey__stage">
-              <span class="journey__node" aria-hidden="true"></span>
-              <p class="journey__step">Stage 3</p>
-              <h3 class="journey__name">Action</h3>
-              <p>Recording podcast conversations and shooting short films with our storytellers.</p>
-            </li>
-            <li class="journey__stage">
-              <span class="journey__node" aria-hidden="true"></span>
-              <p class="journey__step">Stage 4</p>
-              <h3 class="journey__name">Reflection</h3>
-              <p>Looking back after every episode: what worked, what didn’t, and whether we treated each storyteller fairly.</p>
-            </li>
-            <li class="journey__stage">
-              <span class="journey__node" aria-hidden="true"></span>
-              <p class="journey__step">Stage 5</p>
-              <h3 class="journey__name">Demonstration</h3>
-              <p>Releasing the stories and sharing what we learned with our school and the wider community.</p>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
-
-    <!-- ============================== 05 LEARNING OUTCOMES ============================== -->
-    <section class="section" id="outcomes" data-nav="Outcomes">
-      <div class="frame" data-frame>
-        <div class="frame__head">
-          <p class="label"><span class="label__num"></span>CAS learning outcomes</p>
-          <span class="rule rule--h" aria-hidden="true"></span>
-        </div>
-
-        <h2 class="heading" data-split="chars">What this project lets us show.</h2>
-
-        <ul class="outcomes">
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO1</p>
-            <p class="outcome__name" data-reveal>Identify own strengths and develop areas for growth</p>
-            <p class="outcome__how" data-reveal>Each of us takes on roles, from hosting to filming to editing, that use our strengths and stretch our weak spots.</p>
-          </li>
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO2</p>
-            <p class="outcome__name" data-reveal>Demonstrate that challenges have been undertaken, developing new skills in the process</p>
-            <p class="outcome__how" data-reveal>Learning new skills: interviewing, recording audio, filming, and editing.</p>
-          </li>
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO3</p>
-            <p class="outcome__name" data-reveal>Demonstrate how to initiate and plan a CAS experience</p>
-            <p class="outcome__how" data-reveal>Cerita Nyata is student-founded. We started it, we plan it, and we run it.</p>
-          </li>
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO4</p>
-            <p class="outcome__name" data-reveal>Show commitment to and perseverance in CAS experiences</p>
-            <p class="outcome__how" data-reveal>Committing to a series of episodes and films over time, not a one-off event.</p>
-          </li>
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO5</p>
-            <p class="outcome__name" data-reveal>Demonstrate the skills and recognize the benefits of working collaboratively</p>
-            <p class="outcome__how" data-reveal>Everything we make is a collaboration, within our team and with the people whose stories we tell.</p>
-          </li>
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO6</p>
-            <p class="outcome__name" data-reveal>Demonstrate engagement with issues of global significance</p>
-            <p class="outcome__how" data-reveal>Our stories deal with real issues and real struggles, and aim to start conversations about them.</p>
-          </li>
-          <li class="outcome">
-            <span class="rule rule--h" aria-hidden="true"></span>
-            <p class="outcome__code" data-reveal>LO7</p>
-            <p class="outcome__name" data-reveal>Recognize and consider the ethics of choices and actions</p>
-            <p class="outcome__how" data-reveal>Consent comes first. We amplify real voices without exploiting them.</p>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
-
-    <!-- ============================== 06 STORIES ============================== -->
-    <section class="section" id="stories" data-nav="Stories">
-      <div class="frame" data-frame>
-        <div class="frame__head">
-          <p class="label"><span class="label__num"></span>Our stories</p>
-          <span class="rule rule--h" aria-hidden="true"></span>
-        </div>
-
-        <h2 class="heading" data-split="chars">Podcasts and short films.</h2>
-        <p class="intro" data-split="words">Our first stories are on their way. When one is out, it will appear here.</p>
-
-        <!-- Add a card per episode or film. To link one, change the <article> to <a href="..."> -->
-        <div class="cards">
-          <article class="card" data-frame="14">
-            <p class="card__kind">Podcast · Episode 01</p>
-            <h3 class="card__title">Coming soon</h3>
-            <p>Real conversations with real people, in their own words.</p>
-          </article>
-          <article class="card" data-frame="14">
-            <p class="card__kind">Short film · 01</p>
-            <h3 class="card__title">Coming soon</h3>
-            <p>Short films based on real experiences.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
-
-    <!-- ============================== 07 CONTACT ============================== -->
-    <section class="section" id="contact" data-nav="Contact">
+    <!-- ============================== 05 CONTACT ============================== -->
+    <section class="section" id="contact" data-nav="Contact" data-nav-id="Kontak">
       <div class="frame frame--center" data-frame>
         <div class="frame__head">
-          <p class="label"><span class="label__num"></span>Contact</p>
+          <p class="label"><span class="label__num"></span><span lang="en">Contact</span><span lang="id">Kontak</span></p>
           <span class="rule rule--h" aria-hidden="true"></span>
         </div>
 
-        <h2 class="heading heading--xl" data-split="chars">Got a story?</h2>
-        <p class="intro" data-split="words">Maybe something happened to you that more people should hear about, or you want to help us film and record. Send us a message. We won’t share anything without your permission.</p>
+        <h2 class="heading heading--xl" data-split="chars"><span lang="en">Got a story?</span><span lang="id">Punya cerita?</span></h2>
+        <p class="intro" data-split="words"><span lang="en">Maybe something happened to you that more people should hear about, or you want to help us film and record. Send us a message. We won’t share anything without your permission.</span><span lang="id">Mungkin ada hal yang kamu alami dan perlu didengar lebih banyak orang, atau kamu ingin membantu kami syuting dan merekam. Kirim pesan ke kami. Kami tidak akan membagikan apa pun tanpa izinmu.</span></p>
 
         <div class="actions actions--wide" data-reveal>
-          <a class="btn" href="#message" data-frame="10">Send a message</a>
+          <a class="btn" href="#message" data-frame="10"><span lang="en">Send a message</span><span lang="id">Kirim pesan</span></a>
         </div>
 
         <!--
@@ -392,35 +302,36 @@
         -->
         <dialog class="message" id="message" aria-labelledby="message-title" data-lenis-prevent>
           <div class="frame message__panel" data-frame>
-            <button class="message__close" type="button" data-close-message>Close <span aria-hidden="true">✕</span></button>
-            <p class="label">Send a message</p>
-            <h2 class="message__title" id="message-title">Message the team.</h2>
-            <p class="intro">Tell us a bit about your story or what you’d like to help with. We’ll reply by email.</p>
+            <button class="message__close" type="button" data-close-message><span lang="en">Close</span><span lang="id">Tutup</span> <span aria-hidden="true">✕</span></button>
+            <p class="label"><span lang="en">Send a message</span><span lang="id">Kirim pesan</span></p>
+            <h2 class="message__title" id="message-title"><span lang="en">Message the team.</span><span lang="id">Kirim pesan ke tim.</span></h2>
+            <p class="intro"><span lang="en">Tell us a bit about your story or what you’d like to help with. We’ll reply by email.</span><span lang="id">Ceritakan sedikit tentang kisahmu atau apa yang ingin kamu bantu. Kami akan membalas lewat email.</span></p>
 
             <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form>
               <input type="hidden" name="access_key" value="5a02e537-5cd7-4c4c-8c87-fffdc516f4a0" />
               <input type="hidden" name="subject" value="New message from the Cerita Nyata website" />
               <input type="hidden" name="from_name" value="Cerita Nyata website" />
+              <input type="hidden" name="language" value="English" />
               <!-- spam trap: people never see this box, bots tick it -->
               <input type="checkbox" name="botcheck" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <div class="contact-form__row">
                 <label class="field">
-                  <span class="field__label">Your name</span>
+                  <span class="field__label"><span lang="en">Your name</span><span lang="id">Nama</span></span>
                   <input class="field__input" type="text" name="name" required autocomplete="name" />
                 </label>
                 <label class="field">
-                  <span class="field__label">Your email</span>
+                  <span class="field__label"><span lang="en">Your email</span><span lang="id">Email</span></span>
                   <input class="field__input" type="email" name="email" required autocomplete="email" />
                 </label>
               </div>
               <label class="field">
-                <span class="field__label">Your message</span>
+                <span class="field__label"><span lang="en">Your message</span><span lang="id">Pesan</span></span>
                 <textarea class="field__input" name="message" rows="5" required></textarea>
               </label>
 
               <div class="message__actions">
-                <button class="btn" type="submit" data-frame="10"><span class="btn__label">Send message</span></button>
+                <button class="btn" type="submit" data-frame="10"><span class="btn__label"><span lang="en">Send message</span><span lang="id">Kirim</span></span></button>
               </div>
               <p class="contact-form__status" role="status" aria-live="polite"></p>
             </form>
@@ -429,20 +340,130 @@
       </div>
     </section>
 
-    <!--
-      ============================== TEMPLATE: copy this to add a section ==============================
-      1. Paste it above (after a connector), 2. change id="..." and data-nav="...", 3. write your text.
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <!-- ============================== 06 CAS JOURNEY ============================== -->
+    <section class="section" id="journey" data-nav="CAS Journey" data-nav-id="Perjalanan CAS">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span><span lang="en">Our CAS journey</span><span lang="id">Perjalanan CAS kami</span></p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="heading" data-split="chars"><span lang="en">From an idea to stories people hear.</span><span lang="id">Dari sebuah ide menjadi cerita yang didengar banyak orang.</span></h2>
+        <p class="intro" data-split="words"><span lang="en">Cerita Nyata is our CAS project. It follows the five CAS stages, and the line below fills in as you scroll through them.</span><span lang="id">Cerita Nyata adalah proyek CAS kami. Proyek ini mengikuti lima tahap CAS, dan garis di bawah akan terisi saat kamu menggulir.</span></p>
+
+        <div class="journey" data-journey>
+          <span class="journey__track" aria-hidden="true"><span class="journey__fill"></span></span>
+          <ol class="journey__list">
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step"><span lang="en">Stage 1</span><span lang="id">Tahap 1</span></p>
+              <h3 class="journey__name"><span lang="en">Investigation</span><span lang="id">Investigasi</span></h3>
+              <p><span lang="en">Finding the issues that matter to the people around us, and the people who want their stories heard.</span><span lang="id">Mencari isu yang penting bagi orang-orang di sekitar kami, dan orang-orang yang ingin ceritanya didengar.</span></p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step"><span lang="en">Stage 2</span><span lang="id">Tahap 2</span></p>
+              <h3 class="journey__name"><span lang="en">Preparation</span><span lang="id">Persiapan</span></h3>
+              <p><span lang="en">Planning episodes and films, agreeing on how we ask for consent, and learning to record, film, and edit.</span><span lang="id">Merencanakan episode dan film, menyepakati cara kami meminta persetujuan, serta belajar merekam, syuting, dan mengedit.</span></p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step"><span lang="en">Stage 3</span><span lang="id">Tahap 3</span></p>
+              <h3 class="journey__name"><span lang="en">Action</span><span lang="id">Aksi</span></h3>
+              <p><span lang="en">Recording podcast conversations and shooting short films with our storytellers.</span><span lang="id">Merekam obrolan podcast dan syuting film pendek bersama para narasumber kami.</span></p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step"><span lang="en">Stage 4</span><span lang="id">Tahap 4</span></p>
+              <h3 class="journey__name"><span lang="en">Reflection</span><span lang="id">Refleksi</span></h3>
+              <p><span lang="en">Looking back after every episode: what worked, what didn’t, and whether we treated each storyteller fairly.</span><span lang="id">Melihat kembali setiap episode: apa yang berhasil, apa yang tidak, dan apakah kami sudah memperlakukan setiap narasumber dengan adil.</span></p>
+            </li>
+            <li class="journey__stage">
+              <span class="journey__node" aria-hidden="true"></span>
+              <p class="journey__step"><span lang="en">Stage 5</span><span lang="id">Tahap 5</span></p>
+              <h3 class="journey__name"><span lang="en">Demonstration</span><span lang="id">Demonstrasi</span></h3>
+              <p><span lang="en">Releasing the stories and sharing what we learned with our school and the wider community.</span><span lang="id">Merilis cerita-cerita kami dan membagikan apa yang kami pelajari kepada sekolah dan masyarakat luas.</span></p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
 
     <div class="connector" data-scrub aria-hidden="true"><span></span></div>
 
-    <section class="section" id="team" data-nav="Team">
+    <!-- ============================== 07 LEARNING OUTCOMES ============================== -->
+    <section class="section" id="outcomes" data-nav="Outcomes" data-nav-id="Capaian">
       <div class="frame" data-frame>
         <div class="frame__head">
-          <p class="label"><span class="label__num"></span>Meet the team</p>
+          <p class="label"><span class="label__num"></span><span lang="en">CAS learning outcomes</span><span lang="id">Capaian pembelajaran CAS</span></p>
           <span class="rule rule--h" aria-hidden="true"></span>
         </div>
-        <h2 class="heading" data-split="chars">Your section heading.</h2>
-        <p class="intro" data-split="words">A paragraph of text. Add as many paragraphs as you like.</p>
+
+        <h2 class="heading" data-split="chars"><span lang="en">What this project lets us show.</span><span lang="id">Apa yang bisa kami tunjukkan lewat proyek ini.</span></h2>
+
+        <ul class="outcomes">
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO1</p>
+            <p class="outcome__name" data-reveal><span lang="en">Identify own strengths and develop areas for growth</span><span lang="id">Mengenali kekuatan diri dan mengembangkan area untuk bertumbuh</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Each of us takes on roles, from hosting to filming to editing, that use our strengths and stretch our weak spots.</span><span lang="id">Setiap anggota mengambil peran, mulai dari host, syuting, sampai editing, yang memakai kekuatan kami sekaligus melatih kelemahan kami.</span></p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO2</p>
+            <p class="outcome__name" data-reveal><span lang="en">Demonstrate that challenges have been undertaken, developing new skills in the process</span><span lang="id">Menunjukkan bahwa tantangan telah dihadapi, sambil mengembangkan keterampilan baru</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Learning new skills: interviewing, recording audio, filming, and editing.</span><span lang="id">Belajar keterampilan baru: wawancara, merekam audio, syuting, dan editing.</span></p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO3</p>
+            <p class="outcome__name" data-reveal><span lang="en">Demonstrate how to initiate and plan a CAS experience</span><span lang="id">Menunjukkan cara memulai dan merencanakan pengalaman CAS</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Cerita Nyata is student-founded. We started it, we plan it, and we run it.</span><span lang="id">Cerita Nyata didirikan oleh pelajar. Kami yang memulai, merencanakan, dan menjalankannya.</span></p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO4</p>
+            <p class="outcome__name" data-reveal><span lang="en">Show commitment to and perseverance in CAS experiences</span><span lang="id">Menunjukkan komitmen dan ketekunan dalam pengalaman CAS</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Committing to a series of episodes and films over time, not a one-off event.</span><span lang="id">Berkomitmen pada rangkaian episode dan film dalam jangka panjang, bukan sekadar acara satu kali.</span></p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO5</p>
+            <p class="outcome__name" data-reveal><span lang="en">Demonstrate the skills and recognize the benefits of working collaboratively</span><span lang="id">Menunjukkan keterampilan dan memahami manfaat bekerja sama</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Everything we make is a collaboration, within our team and with the people whose stories we tell.</span><span lang="id">Semua yang kami buat adalah hasil kolaborasi, di dalam tim dan bersama orang-orang yang ceritanya kami angkat.</span></p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO6</p>
+            <p class="outcome__name" data-reveal><span lang="en">Demonstrate engagement with issues of global significance</span><span lang="id">Menunjukkan keterlibatan dengan isu-isu yang penting secara global</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Our stories deal with real issues and real struggles, and aim to start conversations about them.</span><span lang="id">Cerita kami membahas isu dan perjuangan nyata, dan bertujuan membuka percakapan tentangnya.</span></p>
+          </li>
+          <li class="outcome">
+            <span class="rule rule--h" aria-hidden="true"></span>
+            <p class="outcome__code" data-reveal>LO7</p>
+            <p class="outcome__name" data-reveal><span lang="en">Recognize and consider the ethics of choices and actions</span><span lang="id">Mengenali dan mempertimbangkan etika dari pilihan dan tindakan</span></p>
+            <p class="outcome__how" data-reveal><span lang="en">Consent comes first. We amplify real voices without exploiting them.</span><span lang="id">Persetujuan selalu nomor satu. Kami mengangkat suara-suara nyata tanpa mengeksploitasinya.</span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!--
+      ============================== TEMPLATE: copy this to add a section ==============================
+      1. Paste it above (after a connector), 2. change id="...", data-nav="..." and data-nav-id="...", 3. write your text in both languages.
+
+    <div class="connector" data-scrub aria-hidden="true"><span></span></div>
+
+    <section class="section" id="gallery" data-nav="Gallery" data-nav-id="Galeri">
+      <div class="frame" data-frame>
+        <div class="frame__head">
+          <p class="label"><span class="label__num"></span><span lang="en">Gallery</span><span lang="id">Galeri</span></p>
+          <span class="rule rule--h" aria-hidden="true"></span>
+        </div>
+        <h2 class="heading" data-split="chars"><span lang="en">Your section heading.</span><span lang="id">Judul bagianmu.</span></h2>
+        <p class="intro" data-split="words"><span lang="en">A paragraph of text.</span><span lang="id">Satu paragraf teks.</span></p>
       </div>
     </section>
     -->
@@ -452,12 +473,12 @@
   <footer class="footer">
     <p class="footer__mark" data-split="chars">Cerita Nyata</p>
     <div class="footer__row">
-      <p>© <span data-year>2026</span> Cerita Nyata. A student-founded CAS project.</p>
-      <p>Sky photos: Masum Bin Zafar and others / Unsplash</p>
+      <p>© <span data-year>2026</span> Cerita Nyata. <span lang="en">A student-founded CAS project.</span><span lang="id">Proyek CAS yang didirikan oleh pelajar.</span></p>
+      <p><span lang="en">Sky photos: Masum Bin Zafar and others / Unsplash</span><span lang="id">Foto langit: Masum Bin Zafar dan lainnya / Unsplash</span></p>
       <a href="https://www.instagram.com/cerit4nyata/" target="_blank" rel="noopener">Instagram @cerit4nyata</a>
-      <a href="#top">Back to top ↑</a>
+      <a href="#top"><span lang="en">Back to top ↑</span><span lang="id">Kembali ke atas ↑</span></a>
     </div>
-    <p class="footer__credit">Website made by Eshan Kewalramani</p>
+    <p class="footer__credit"><span lang="en">Website made by Eshan Kewalramani</span><span lang="id">Situs web dibuat oleh Eshan Kewalramani</span></p>
   </footer>
 </body>
 </html>

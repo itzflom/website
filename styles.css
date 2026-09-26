@@ -112,6 +112,13 @@ button {
   border: 0;
 }
 
+/* Language: every text is written twice; only the chosen one shows (html data-lang="en" or "id") */
+html:not([data-lang="id"]) body [lang="id"],
+html[data-lang="id"] body [lang="en"] {
+  display: none !important;
+}
+
+
 .skip-link {
   position: fixed;
   top: 12px;
@@ -155,8 +162,8 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg?v=10") 50% 0% / cover no-repeat;
-  background-image: image-set(url("images/sky.webp?v=10") type("image/webp"), url("images/sky.jpg?v=10") type("image/jpeg"));
+  background: var(--sky) url("images/sky.jpg?v=11") 50% 0% / cover no-repeat;
+  background-image: image-set(url("images/sky.webp?v=11") type("image/webp"), url("images/sky.jpg?v=11") type("image/jpeg"));
   transform-origin: 50% 30%;
   will-change: transform;
 }
@@ -574,6 +581,42 @@ html.lenis body {
   margin-right: -12px; /* line the icon up with the page edge */
 }
 
+/* EN / ID switch */
+.lang {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.lang__btn {
+  min-width: 34px;
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  opacity: 0.5;
+  transition: opacity 0.4s;
+}
+
+.lang__btn:hover,
+.lang__btn[aria-pressed="true"] {
+  opacity: 1;
+}
+
+.lang__btn[aria-pressed="true"] {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+}
+
+.lang__sep {
+  font-size: 0.72rem;
+  opacity: 0.4;
+}
+
 .nav__social {
   display: inline-flex;
   align-items: center;
@@ -690,7 +733,7 @@ html.lenis body {
     transform 0.9s var(--ease-out) calc(0.1s + var(--i) * 70ms);
 }
 
-.menu__list a span {
+.menu__num {
   min-width: 2.4em;
   font-size: 0.72rem;
   letter-spacing: 0.2em;
@@ -718,6 +761,10 @@ html.lenis body {
 
   .nav__end {
     margin-right: 0;
+  }
+
+  .nav {
+    gap: 12px;
   }
 
   .menu {
@@ -1235,10 +1282,14 @@ html:not(.js) .message:target {
 
 .message__close {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 8px;
+  right: 10px;
   z-index: 2;
-  padding: 10px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 44px;
+  padding: 0 10px;
   background: none;
   border: 0;
   font-size: 0.68rem;
@@ -2062,5 +2113,62 @@ textarea.field__input {
   .menu__list a,
   .menu__list li::after {
     transition: none;
+  }
+}
+
+/* Narrow phones: tighten the nav bar so brand, EN / ID, Instagram and Menu fit */
+@media (max-width: 400px) {
+  .nav__brand {
+    letter-spacing: 0.22em;
+  }
+
+  .lang__btn {
+    min-width: 28px;
+    padding: 0 3px;
+    letter-spacing: 0.1em;
+  }
+
+  .nav__social {
+    width: 40px;
+  }
+}
+
+@media (max-width: 350px) {
+  .nav__brand {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* ============================================================
+   PHONES: bigger small print (labels, stage numbers, form labels)
+   ============================================================ */
+@media (max-width: 700px) {
+  .label,
+  .journey__step,
+  .card__kind,
+  .field__label,
+  .message__close,
+  .member__num {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+  }
+
+  .member__role {
+    font-size: 0.74rem;
+  }
+
+  .scroll-cue {
+    font-size: 0.74rem;
+  }
+
+  /* long labels wrap instead of pushing past the edge */
+  .frame__head .label {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .frame__head .rule {
+    min-width: 24px;
   }
 }
