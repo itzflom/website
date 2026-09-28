@@ -188,6 +188,21 @@ On GitHub: **Settings → Pages → Build and deployment → Source: Deploy from
 branch → Branch: `main`, folder: `/ (root)` → Save.** The site goes live at
 `https://<username>.github.io/<repo>/` within a minute or two.
 
+### The site's address: ceritanyata.is-local.org
+
+The site lives at **https://ceritanyata.is-local.org** (a free subdomain from
+[Open Domains](https://open-domains.com)). Two things keep it working:
+
+- **The `CNAME` file** in this repo holds the address. Don't delete or rename
+  it. The old `itzflom.github.io/website` link forwards to the new address.
+- **The DNS record at Open Domains**: one `CNAME` record for
+  `ceritanyata.is-local.org` pointing to `itzflom.github.io`, with the
+  Cloudflare proxy **off**. If the record is deleted, Open Domains suspends
+  the subdomain after a grace period.
+
+For the padlock, tick **Settings → Pages → Enforce HTTPS** once GitHub has
+issued the certificate (up to about an hour after the address is set up).
+
 ## Credits & notes
 
 - Background photo: [Masum Bin Zafar on Unsplash](https://unsplash.com/photos/blue-sky-filled-with-scattered-white-cumulus-clouds-rdtPPy49BSg)
