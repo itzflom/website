@@ -162,8 +162,8 @@ html.lenis body {
   z-index: -2;
   height: 140vh;
   height: 140lvh;
-  background: var(--sky) url("images/sky.jpg?v=11") 50% 0% / cover no-repeat;
-  background-image: image-set(url("images/sky.webp?v=11") type("image/webp"), url("images/sky.jpg?v=11") type("image/jpeg"));
+  background: var(--sky) url("images/sky.jpg?v=12") 50% 0% / cover no-repeat;
+  background-image: image-set(url("images/sky.webp?v=12") type("image/webp"), url("images/sky.jpg?v=12") type("image/jpeg"));
   transform-origin: 50% 30%;
   will-change: transform;
 }
@@ -517,12 +517,22 @@ html.lenis body {
 }
 
 .nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
+}
+
+/* the logo's mark (crescent, N and cloud) before the name */
+.nav__logo {
+  flex-shrink: 0;
+  width: auto;
+  height: 30px;
 }
 
 .nav__links ul {
@@ -810,14 +820,26 @@ html.lenis body {
   text-wrap: balance;
 }
 
+/* The logo (images/logo.svg): as wide as fits, but never taller than ~38% of the screen */
 .hero__title {
-  font-size: clamp(3.2rem, 7.4vw, 8.5rem);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  /* optical centring: letter-spacing adds space after the last letter */
-  margin-right: -0.08em;
+  margin: 4px 0;
+  line-height: 0;
+}
+
+.hero__logo {
+  display: block;
+  width: min(540px, 40vw, 58vh);
+  height: auto;
+  filter: drop-shadow(0 2px 18px rgba(12, 32, 36, 0.35));
+}
+
+.js .hero__title[data-reveal] {
+  transform: translate3d(0, 28px, 0) scale(0.96);
+  transition-duration: 1.6s, 1.8s;
+}
+
+.js .hero__title[data-reveal].is-in {
+  transform: none;
 }
 
 .hero__meaning {
@@ -883,13 +905,8 @@ html.lenis body {
 }
 
 @media (max-width: 700px) {
-  .hero__title {
-    font-size: clamp(3rem, 17vw, 5.5rem);
-    line-height: 0.95;
-  }
-
-  .hero__word {
-    display: block;
+  .hero__logo {
+    width: min(360px, 80vw, 58vh);
   }
 }
 
@@ -1812,15 +1829,11 @@ textarea.field__input {
   --focus: var(--cream);
 }
 
-.footer__mark {
-  font-size: clamp(2.2rem, 11.6vw, 13rem);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-align: center;
-  text-transform: uppercase;
-  white-space: nowrap;
-  margin-right: -0.06em;
+.footer__logo {
+  display: block;
+  width: clamp(200px, 30vw, 380px);
+  height: auto;
+  margin: 0 auto;
 }
 
 .footer__row {
@@ -2058,6 +2071,7 @@ textarea.field__input {
   .js .frame::before,
   .js .frame__head .label,
   .js [data-reveal],
+  .js .hero__title[data-reveal],
   .js [data-split] .ch,
   .js [data-split] .w > span,
   .js .journey__stage {
@@ -2116,12 +2130,18 @@ textarea.field__input {
   }
 }
 
-/* Narrow phones: tighten the nav bar so brand, EN / ID, Instagram and Menu fit */
-@media (max-width: 400px) {
+/* Narrow phones: tighten the nav bar so logo, name, EN / ID, Instagram and Menu fit */
+@media (max-width: 430px) {
   .nav__brand {
     letter-spacing: 0.22em;
   }
 
+  .nav__logo {
+    height: 28px;
+  }
+}
+
+@media (max-width: 400px) {
   .lang__btn {
     min-width: 28px;
     padding: 0 3px;
@@ -2133,10 +2153,26 @@ textarea.field__input {
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 380px) {
   .nav__brand {
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
+    gap: 6px;
+    letter-spacing: 0.14em;
+  }
+
+  .nav__logo {
+    height: 24px;
+  }
+}
+
+/* Very narrow phones: just the logo mark (the name is still read out by screen readers) */
+@media (max-width: 359px) {
+  .nav__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 
