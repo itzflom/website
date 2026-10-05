@@ -21,11 +21,23 @@ or back up: once a box has left the screen it resets, so it draws in again.
 | `images/sky.webp` | The background (3600 px wide). `images/sky.jpg` is a fallback for older browsers. |
 | `images/cloud-01.webp` … `cloud-14.webp` | The clouds that drift in front of the page. Each one is a different real cloud. |
 | `images/team/` | Teammate photos (see **Team panels** below). |
+| `images/logo.svg` | The full logo (mark + "cerita nyata"), used in the hero and the footer. |
+| `images/logo-mark.svg` | Just the mark (crescent, N, road and cloud), used in the nav bar. |
+| `images/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` | The browser-tab icon and the phone home-screen icon. |
 
 ## Editing text
 
 Open `index.html` and change the words between the tags. Each section is
 marked with a comment like `<!-- 02 VALUES -->`.
+
+## Logo
+
+The logo files in `images/` are vector (SVG) tracings of the Cerita Nyata
+logo, so they stay sharp at any size. To change the logo, replace
+`logo.svg` (full logo) and `logo-mark.svg` (mark only) with new SVGs of the
+same names, and the icons (`favicon.svg`, `favicon-32.png`,
+`apple-touch-icon.png`) if the mark changes. Then raise the `?v=` number (see
+**Updating the live site**).
 
 ## English / Indonesian
 
@@ -170,10 +182,10 @@ change the `subject` field to change that.
 
 GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
 visitors never get a new page with an old script or stylesheet, `index.html`
-loads them with a version number: `styles.css?v=11`, `script.js?v=11`, and the
-images as `images/sky.webp?v=11` etc. (in `index.html` and `styles.css`).
+loads them with a version number: `styles.css?v=12`, `script.js?v=12`, and the
+images as `images/sky.webp?v=12` etc. (in `index.html` and `styles.css`).
 **Whenever you change `styles.css`, `script.js` or the background, raise that
-number everywhere it appears** (e.g. to `?v=12`). Changes to `index.html` alone
+number everywhere it appears** (e.g. to `?v=13`). Changes to `index.html` alone
 don't need it. If you still see an old version, hard-refresh with
 Ctrl+Shift+R (Cmd+Shift+R on a Mac).
 
