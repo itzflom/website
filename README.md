@@ -104,21 +104,26 @@ own colour and moving effect. Each person is one `<article class="member">`
 in `index.html`:
 
 ```html
-<article class="member" data-fx="bubbles" data-photo="" style="--c1: #3f8d91; --c2: #a8ded8; --c3: #133a40">
+<article class="member" data-fx="bubbles" data-photo="images/team/eshan.webp?v=13" style="--c1: #3f8d91; --c2: #a8ded8; --c3: #133a40; --px: 40%">
   <h3 class="member__name">Eshan</h3>
   <p class="member__role"></p>
 </article>
 ```
 
-- **Photo:** put it in `images/team/` and set `data-photo="images/team/eshan.jpg"`.
-  Tall photos work best. With no photo, the panel shows a big initial.
+- **Photo:** put it in `images/team/` and set `data-photo="images/team/eshan.webp"`.
+  Crop it to a tall portrait (3 wide by 5 high, about 600 × 1000 px) with the
+  face in the top half. With no photo, the panel shows a big initial.
+- **Face position:** `--px` says where the face is across the photo (default
+  `50%`, the middle). Eshan's is `40%` and Ameer's `32%` because their faces
+  are left of centre, so narrow panels still show the face.
 - **Role:** write it in `member__role`, e.g. `Host`. Empty roles are hidden.
 - **Colours:** `--c1` main, `--c2` light, `--c3` dark.
 - **Effect:** `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, `sparks`,
-  or `echoes` (sound-wave rings, Ameer's).
+  `echoes` (sound-wave rings, Ameer's) or `comets` (shooting streaks, Brian's).
 - **Blank panel:** `class="member member--empty"` gives a plain placeholder panel.
 
-On a computer, the panel under the mouse widens. On phones and tablets, all six show at once in a grid.
+On a computer, the panel under the mouse widens. On phones and tablets, everyone shows at once in a grid
+(3 across on tablets, 2 on phones), and a lone panel on the last row is centred.
 
 ## 3D clouds
 
@@ -182,10 +187,10 @@ change the `subject` field to change that.
 
 GitHub Pages tells browsers to keep each file for up to 10 minutes. So that
 visitors never get a new page with an old script or stylesheet, `index.html`
-loads them with a version number: `styles.css?v=12`, `script.js?v=12`, and the
-images as `images/sky.webp?v=12` etc. (in `index.html` and `styles.css`).
+loads them with a version number: `styles.css?v=13`, `script.js?v=13`, and the
+images as `images/sky.webp?v=13` etc. (in `index.html` and `styles.css`).
 **Whenever you change `styles.css`, `script.js` or the background, raise that
-number everywhere it appears** (e.g. to `?v=13`). Changes to `index.html` alone
+number everywhere it appears** (e.g. to `?v=14`). Changes to `index.html` alone
 don't need it. If you still see an old version, hard-refresh with
 Ctrl+Shift+R (Cmd+Shift+R on a Mac).
 
