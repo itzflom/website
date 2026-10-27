@@ -112,13 +112,15 @@ in `index.html`:
 
 - **Photo:** put it in `images/team/` and set `data-photo="images/team/eshan.webp"`.
   Crop it to a tall portrait (3 wide by 5 high, about 600 × 1000 px) with the
-  face in the top half. With no photo, the panel shows a big initial.
+  face in the top half. A panel with a photo shows just the photo, with a soft
+  fade in their colour behind the name. With no photo, the panel shows a big
+  initial with the colour wash, swooshes and moving effect instead.
 - **Face position:** `--px` says where the face is across the photo (default
   `50%`, the middle). Eshan's is `40%` and Ameer's `32%` because their faces
   are left of centre, so narrow panels still show the face.
 - **Role:** write it in `member__role`, e.g. `Host`. Empty roles are hidden.
 - **Colours:** `--c1` main, `--c2` light, `--c3` dark.
-- **Effect:** `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, `sparks`,
+- **Effect** (panels without a photo): `data-fx` can be `embers`, `petals`, `bubbles`, `leaves`, `sparks`,
   `echoes` (sound-wave rings, Ameer's) or `comets` (shooting streaks, Brian's).
 - **Blank panel:** `class="member member--empty"` gives a plain placeholder panel.
 

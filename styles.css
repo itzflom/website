@@ -1497,9 +1497,12 @@ textarea.field__input {
   object-position: var(--px, 50%) 20%;
 }
 
-.member--photo .member__bg {
-  mix-blend-mode: soft-light;
-  opacity: 0.85;
+/* photo panels: a shorter fade, so it only sits behind the name */
+.member--photo .member__shade {
+  top: 62%;
+  height: 38%;
+  background: linear-gradient(to top, var(--c3) 0%, transparent);
+  opacity: 0.9;
 }
 
 .member__initial {

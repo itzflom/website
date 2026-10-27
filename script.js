@@ -291,6 +291,8 @@
     var rand = seeded(index + 3);
     var photo = member.getAttribute("data-photo");
 
+    /* With a photo: just the photo, and a soft fade in their colour behind the name.
+       The colour wash, swooshes and particles below are only for panels without one. */
     if (photo) {
       var img = document.createElement("img");
       img.className = "member__photo";
@@ -299,12 +301,14 @@
       img.loading = "lazy";
       img.decoding = "async";
       scene.appendChild(img);
+      scene.appendChild(make("div", "member__shade"));
       member.classList.add("member--photo");
+      return;
     }
 
     scene.appendChild(make("div", "member__bg"));
 
-    if (!photo && name) {
+    if (name) {
       var initial = make("span", "member__initial", name.charAt(0));
       initial.setAttribute("aria-hidden", "true");
       scene.appendChild(initial);
