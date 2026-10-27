@@ -256,7 +256,8 @@
     petals: [8, 14],
     leaves: [9, 15],
     sparks: [6, 12],
-    echoes: [30, 90]
+    echoes: [30, 90],
+    comets: [10, 18]
   };
 
   toArray(document.querySelectorAll(".member")).forEach(function (member, index) {
@@ -290,6 +291,8 @@
     var rand = seeded(index + 3);
     var photo = member.getAttribute("data-photo");
 
+    /* With a photo: just the photo, and a soft fade in their colour behind the name.
+       The colour wash, swooshes and particles below are only for panels without one. */
     if (photo) {
       var img = document.createElement("img");
       img.className = "member__photo";
@@ -298,12 +301,14 @@
       img.loading = "lazy";
       img.decoding = "async";
       scene.appendChild(img);
+      scene.appendChild(make("div", "member__shade"));
       member.classList.add("member--photo");
+      return;
     }
 
     scene.appendChild(make("div", "member__bg"));
 
-    if (!photo && name) {
+    if (name) {
       var initial = make("span", "member__initial", name.charAt(0));
       initial.setAttribute("aria-hidden", "true");
       scene.appendChild(initial);
@@ -341,7 +346,7 @@
     scene.appendChild(svg);
 
     /* Particles: embers and bubbles rise, petals and leaves fall, sparks twinkle,
-       echoes pulse out like sound waves */
+       echoes pulse out like sound waves, comets shoot down across the panel */
     var kind = member.getAttribute("data-fx") || "embers";
     var size = PARTICLE_SIZE[kind] || PARTICLE_SIZE.embers;
     var fx = make("div", "member__fx");
@@ -353,6 +358,13 @@
       var y = (8 + rand() * 80).toFixed(1) + "%";
       var diameter = size[0] + rand() * (size[1] - size[0]);
       var delay = -rand() * duration;
+      if (kind === "comets") {
+        /* start on the left: they shoot down towards the right */
+        x = (-20 + rand() * 75).toFixed(1) + "%";
+        y = (-5 + rand() * 70).toFixed(1) + "%";
+        duration = 3.5 + rand() * 3.5;
+        delay = -rand() * duration;
+      }
       if (kind === "echoes" && k < 7) {
         /* seven evenly spaced waves spreading from behind the initial */
         duration = 5.6;
